@@ -21,12 +21,10 @@
   "include": [
     "**/*.ts",
     "**/*.tsx",
-    "./jest-setup.js",
+    "jest.setup.ts",
     ".eslintrc.js",
     "babel.config.js",
     "jest.config.js",
-    "jest.setup.ts",
-    "src/App.ksx",
   ],
   "exclude": [
     "node_modules"

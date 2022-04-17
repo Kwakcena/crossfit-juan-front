@@ -1,8 +1,10 @@
 module.exports = {
   testEnvironment: 'jsdom',
-  setupFilesAfterEnv: [
+  setupFiles: [
     'given2/setup',
     'jest-plugin-context/setup',
-    './jest.setup',
+  ],
+  setupFilesAfterEnv: [
+    '<rootDir>/jest.setup.ts',
   ],
 }
