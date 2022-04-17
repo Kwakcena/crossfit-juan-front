@@ -24,6 +24,7 @@ module.exports = {
   ],
   globals: {
     context: 'readonly',
+    given: 'readonly',
   },
   rules: {
     "react/jsx-uses-react": "off",
