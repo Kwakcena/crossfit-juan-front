@@ -1,0 +1,40 @@
+{
+  "name": "juan-crossfit-front",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack serve --mode=development",
+    "test": "jest",
+    "lint": "eslint --fix ."
+  },
+  "keywords": [],
+  "author": "",
+  "private": "true",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.17.9",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "@testing-library/jest-dom": "^5.16.3",
+    "@testing-library/react": "^13.0.0",
+    "@types/jest": "^27.4.1",
+    "@typescript-eslint/eslint-plugin": "^5.17.0",
+    "@typescript-eslint/parser": "^5.17.0",
+    "babel-loader": "^8.2.4",
+    "eslint": "^8.12.0",
+    "eslint-plugin-react": "^7.29.4",
+    "given2": "^2.1.7",
+    "jest": "^27.5.1",
+    "jest-plugin-context": "^2.9.0",
+    "webpack": "^5.72.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.8.1"
+  },
+  "dependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-redux": "^7.2.8",
+    "redux": "^4.1.2"
+  }
+}
