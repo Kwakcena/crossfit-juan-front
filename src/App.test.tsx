@@ -1,4 +1,4 @@
-import App from './App';
+import App from './App.jsx';
 
 import { render } from '@testing-library/react';
 
