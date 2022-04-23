@@ -69,5 +69,7 @@ module.exports = {
     'key-spacing': ['error', { 'mode': 'strict' }],
     // Arrow Function 기호 앞 뒤에 공백이 들어가게 한다.
     'arrow-spacing': ['error', { 'before': true, 'after': true }],
+    // 파일의 마지막에 공백 추가
+    'eol-last': ["error", "always"],
   },
 }
