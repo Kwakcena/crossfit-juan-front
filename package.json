@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "webpack serve --mode=development --open",
     "test": "jest",
-    "lint": "eslint --fix ."
+    "lint": "npx eslint --fix ."
   },
   "keywords": [],
   "author": "",
