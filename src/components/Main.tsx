@@ -1,19 +1,16 @@
 import { Container } from '@mui/material';
 
-import UserList from "./UserList";
 import Form from "./Form";
+import TimeTable from './TimeTable/TimeTable';
 
-import { mockUserList } from "../../fixtures";
+import { mockUserList } from '../../fixtures';
 
 export default function Main() {
   return (
     <Container component="main" maxWidth={false}>
       <Form />
-      <div>main</div>
-      {Object.entries(mockUserList.data.timeTable)
-        .map(([key, value]) => (
-          <UserList key={key} time={key} users={value} />
-        ))}
+      {/* TODO: 실제 네트워크를 통해 불러 온 데이터를 전달해야 합니다. */}
+      <TimeTable timeTable={mockUserList.data.timeTable} />
     </Container>
   )
 }
