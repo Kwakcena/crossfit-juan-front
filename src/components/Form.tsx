@@ -10,7 +10,6 @@ const style = {
   },
   box: {
     p: 2,
-    display: 'flex',
     '& :not(:last-of-type)': {
       mr: 3,
     },
