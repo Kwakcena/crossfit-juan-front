@@ -30,7 +30,11 @@ module.exports = {
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
     // 공백 4칸에서 공백 2칸으로 변경.
-    'indent': ['error', 2],
+    '@typescript-eslint/indent': [
+      'error',
+      2,
+    ],
+
     // 줄 끝 공백 항상 제거.
     'no-trailing-spaces': 'error',
     // 블록 중괄호 항상 사용.
