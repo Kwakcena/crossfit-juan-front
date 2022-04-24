@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 
 import Form from './Form';
 
@@ -13,5 +13,21 @@ describe('Form', () => {
     expect(getByLabelText('아이디를 입력해주세요')).toBeInTheDocument();
     expect(getByLabelText('비밀번호를 입력해주세요')).toBeInTheDocument();
     expect(getByLabelText('글 번호를 입력해주세요')).toBeInTheDocument();
+  });
+
+  it('입력란에 값을 입력할 수 있다.', () => {
+    const { getByLabelText } = renderForm();
+
+    const field = getByLabelText('아이디를 입력해주세요');
+
+    expect(field).toHaveValue('');
+
+    fireEvent.change(field, {
+      target: {
+        value: 'rhkrgudwh',
+      },
+    })
+
+    expect(field).toHaveValue('rhkrgudwh');
   });
 });

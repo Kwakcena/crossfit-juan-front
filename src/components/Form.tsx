@@ -1,3 +1,5 @@
+import { ChangeEvent, useState } from 'react';
+
 import { Paper, Box, TextField, Typography } from "@mui/material"
 
 const style = {
@@ -17,6 +19,16 @@ const style = {
 } as const;
 
 export default function Form() {
+  const [form, setForm] = useState({
+    id: '',
+    password: '',
+    articleNumber: '',
+  });
+
+  const handleChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
+    setForm({ ...form, [target.name]: target.value });
+  }
+
   return (
     <Paper sx={style.paper} elevation={3}>
       <Typography sx={style.title} variant="h5" component="h2">
@@ -28,9 +40,9 @@ export default function Form() {
         noValidate
         autoComplete="off"
       >
-        <TextField label="아이디를 입력해주세요" variant="standard" />
-        <TextField label="비밀번호를 입력해주세요" type="password" variant="standard" />
-        <TextField label="글 번호를 입력해주세요" variant="standard" />
+        <TextField name="id" onChange={handleChange} label="아이디를 입력해주세요" variant="standard" />
+        <TextField name='password' onChange={handleChange} label="비밀번호를 입력해주세요" type="password" variant="standard" />
+        <TextField name="articleNumber" onChange={handleChange} label="글 번호를 입력해주세요" variant="standard" />
       </Box>
     </Paper>
   )
