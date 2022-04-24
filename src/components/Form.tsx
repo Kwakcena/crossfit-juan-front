@@ -49,9 +49,28 @@ export default function Form() {
         noValidate
         autoComplete="off"
       >
-        <TextField name="id" onChange={handleChange} label="아이디를 입력해주세요" variant="standard" />
-        <TextField name='password' onChange={handleChange} label="비밀번호를 입력해주세요" type="password" variant="standard" />
-        <TextField name="articleNumber" onChange={handleChange} label="글 번호를 입력해주세요" variant="standard" />
+        <TextField
+          name="id"
+          value={form.id}
+          onChange={handleChange}
+          label="아이디를 입력해주세요"
+          variant="standard"
+        />
+        <TextField
+          name='password'
+          value={form.password}
+          onChange={handleChange}
+          label="비밀번호를 입력해주세요"
+          type="password"
+          variant="standard"
+        />
+        <TextField
+          name="articleNumber"
+          value={form.articleNumber}
+          onChange={handleChange}
+          label="글 번호를 입력해주세요"
+          variant="standard"
+        />
         <Button type="submit" variant="contained">제출하기</Button>
       </Box>
     </Paper>
