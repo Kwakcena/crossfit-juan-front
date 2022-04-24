@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 
 export default function Header() {
   return (
-    <AppBar>
+    <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" component="h1">
           크로스핏 주안 예약자 확인하기
