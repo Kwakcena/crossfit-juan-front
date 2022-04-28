@@ -22,8 +22,8 @@ const style = {
 
 export default function Form() {
   const [form, setForm] = useState({
-    id: '',
-    password: '',
+    naverId: '',
+    naverPw: '',
     articleNumber: '',
   });
 
@@ -50,15 +50,15 @@ export default function Form() {
         autoComplete="off"
       >
         <TextField
-          name="id"
-          value={form.id}
+          name="naverId"
+          value={form.naverId}
           onChange={handleChange}
           label="아이디를 입력해주세요"
           variant="standard"
         />
         <TextField
-          name='password'
-          value={form.password}
+          name='naverPw'
+          value={form.naverPw}
           onChange={handleChange}
           label="비밀번호를 입력해주세요"
           type="password"
