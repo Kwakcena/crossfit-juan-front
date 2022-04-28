@@ -4,6 +4,8 @@ import { Paper, Box, TextField, Typography, Button } from "@mui/material"
 
 import { loadUserTimeTable } from '../api';
 import { TimeTableInterface } from '../interfaces';
+import { useAppDispatch, useAppSelector } from '../hooks';
+import { setForm } from '../slices/slice';
 
 const style = {
   paper: {
@@ -23,27 +25,21 @@ const style = {
   },
 } as const;
 
-export default function Form({
-  setTimeTable,
-}: {
-  setTimeTable: Dispatch<SetStateAction<TimeTableInterface>>;
-}) {
-  const [form, setForm] = useState({
-    naverId: '',
-    naverPw: '',
-    articleNumber: '',
-  });
+export default function Form() {
+  const dispatch = useAppDispatch();
 
-  const handleChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [target.name]: target.value });
+  const { form } = useAppSelector((state) => state);
+
+  const handleChange = ({ target: { name, value } }: ChangeEvent<HTMLInputElement>) => {
+    dispatch(setForm({ name, value }));
   }
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
 
-    const data = await loadUserTimeTable(form);
+    // const data = await loadUserTimeTable(form);
 
-    setTimeTable(data.timeTable);
+    // setTimeTable(data.timeTable);
   }
 
   return (

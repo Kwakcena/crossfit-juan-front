@@ -1,20 +1,39 @@
 import { fireEvent, render, waitFor } from "@testing-library/react";
 
+import { useSelector, useDispatch } from "react-redux";
+
 import Form from './Form';
 
 import { loadUserTimeTable } from '../api';
 import { mockUserList } from "../../fixtures";
 
+import configureStore, { MockStoreEnhanced } from 'redux-mock-store';
+import { getDefaultMiddleware } from "@reduxjs/toolkit";
+
+import { initialState } from "../slices/slice";
+
+const mockStore = configureStore(getDefaultMiddleware());
+
 jest.mock('../api');
+jest.mock('react-redux');
 
 describe('Form', () => {
-  const setTimeTable = jest.fn();
+  let store: MockStoreEnhanced<unknown>;
 
-  const renderForm = () => render(
-    <Form setTimeTable={setTimeTable} />,
-  )
+  const renderForm = () => render((
+    <Form />
+  ))
 
   beforeEach(() => {
+    store = mockStore(() => ({
+      ...initialState,
+    }));
+
+    (useDispatch as jest.Mock)
+      .mockImplementation(() => store.dispatch);
+    (useSelector as jest.Mock)
+      .mockImplementation((selector) => selector(store.getState()));
+
     (loadUserTimeTable as jest.Mock).mockResolvedValue(mockUserList.data);
   })
 
@@ -40,17 +59,5 @@ describe('Form', () => {
     })
 
     expect(field).toHaveValue('rhkrgudwh');
-  });
-
-  context('제출 버튼을 클릭하면', () => {
-    it('사용자 예약 현황을 가져와 setTimeTable을 호출한다.', async () => {
-      const { getByText } = renderForm();
-
-      fireEvent.click(getByText('제출하기'));
-
-      await waitFor(() => {
-        expect(setTimeTable).toBeCalledWith(mockUserList.data.timeTable);
-      })
-    });
   });
 });
