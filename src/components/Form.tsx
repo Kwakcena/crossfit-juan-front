@@ -1,6 +1,9 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useState } from 'react';
 
 import { Paper, Box, TextField, Typography, Button } from "@mui/material"
+
+import { loadUserTimeTable } from '../api';
+import { TimeTableInterface } from '../interfaces';
 
 const style = {
   paper: {
@@ -20,10 +23,14 @@ const style = {
   },
 } as const;
 
-export default function Form() {
+export default function Form({
+  setTimeTable,
+}: {
+  setTimeTable: Dispatch<SetStateAction<TimeTableInterface>>;
+}) {
   const [form, setForm] = useState({
-    id: '',
-    password: '',
+    naverId: '',
+    naverPw: '',
     articleNumber: '',
   });
 
@@ -31,10 +38,12 @@ export default function Form() {
     setForm({ ...form, [target.name]: target.value });
   }
 
-  const handleSubmit = (event: FormEvent) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
 
-    // TODO: 에약자 정보를 가져오는 api를 요청해야 합니다.
+    const data = await loadUserTimeTable(form);
+
+    setTimeTable(data.timeTable);
   }
 
   return (
@@ -50,15 +59,15 @@ export default function Form() {
         autoComplete="off"
       >
         <TextField
-          name="id"
-          value={form.id}
+          name="naverId"
+          value={form.naverId}
           onChange={handleChange}
           label="아이디를 입력해주세요"
           variant="standard"
         />
         <TextField
-          name='password'
-          value={form.password}
+          name='naverPw'
+          value={form.naverPw}
           onChange={handleChange}
           label="비밀번호를 입력해주세요"
           type="password"
