@@ -3,13 +3,13 @@ import axios from 'axios';
 import { BASE_URL } from '../../configs/config';
 
 interface RequestData {
-  articleNumber: number;
+  articleNumber: string;
   naverId: string;
   naverPw: string;
 }
 
-export const postUserTimeTable = async (requestData: RequestData) => {
-  const url = `${BASE_URL}/users`;
+export const loadUserTimeTable = async (requestData: RequestData) => {
+  const url = `http://localhost:3000/users`;
 
   try {
     const { data } = await axios.post(url, requestData);

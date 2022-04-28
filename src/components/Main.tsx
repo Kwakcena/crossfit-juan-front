@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 import { Container } from '@mui/material';
 
 import Form from "./Form";
@@ -6,9 +8,15 @@ import TimeTable from './TimeTable/TimeTable';
 import { mockUserList } from '../../fixtures';
 
 export default function Main() {
+  const [timeTable, setTimeTable] = useState({});
+
+  useEffect(() => {
+    console.log('timeTable: ', timeTable);
+  }, [timeTable])
+
   return (
     <Container component="main" maxWidth={false}>
-      <Form />
+      <Form setTimeTable={setTimeTable} />
       {/* TODO: 실제 네트워크를 통해 불러 온 데이터를 전달해야 합니다. */}
       <TimeTable timeTable={mockUserList.data.timeTable} />
     </Container>
