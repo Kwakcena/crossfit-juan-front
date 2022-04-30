@@ -7,7 +7,11 @@ import { useSelector } from "react-redux";
 
 import { initialState } from "../slices/slice";
 
-const mockStore = configureStore();
+import thunk from 'redux-thunk';
+import { AppDispatch } from "../store";
+
+const middlewares = [thunk];
+const mockStore = configureStore(middlewares);
 
 jest.mock('react-redux');
 
@@ -16,11 +20,13 @@ describe('Main', () => {
     <Main />,
   );
 
-  let store: MockStoreEnhanced<unknown>;
+  let store: MockStoreEnhanced<unknown, AppDispatch>;
 
   beforeEach(() => {
     store = mockStore(() => ({
-      ...initialState,
+      app: {
+        ...initialState,
+      },
     }));
 
     (useSelector as jest.Mock)
