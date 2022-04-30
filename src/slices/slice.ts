@@ -1,10 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { User } from "../interfaces";
 
 export interface AppState {
   form: {
     naverId: string;
     naverPw: string;
     articleNumber: string;
+  }
+  timeTable: {
+    [x: string]: User[],
   }
 }
 
@@ -14,6 +18,7 @@ export const initialState: AppState = {
     naverPw: '',
     articleNumber: '',
   },
+  timeTable: {},
 }
 
 export const { actions, reducer } = createSlice({
@@ -27,11 +32,16 @@ export const { actions, reducer } = createSlice({
         [name]: value,
       },
     }),
+    setTimeTable: (state, { payload: timeTable }) => ({
+      ...state,
+      timeTable,
+    }),
   },
 })
 
 export const {
   setForm,
+  setTimeTable,
 } = actions;
 
 export default reducer;

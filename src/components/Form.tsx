@@ -1,11 +1,10 @@
-import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useState } from 'react';
+import { ChangeEvent, FormEvent } from 'react';
 
 import { Paper, Box, TextField, Typography, Button } from "@mui/material"
 
 import { loadUserTimeTable } from '../api';
-import { TimeTableInterface } from '../interfaces';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { setForm } from '../slices/slice';
+import { setForm, setTimeTable } from '../slices/slice';
 
 const style = {
   paper: {
@@ -37,9 +36,10 @@ export default function Form() {
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
 
-    // const data = await loadUserTimeTable(form);
+    // TODO: 입력값에 대한 validation 필요. submit 에 대한 thunk action을 만들어 내부에서 validation 하자.
+    const { timeTable } = await loadUserTimeTable(form);
 
-    // setTimeTable(data.timeTable);
+    dispatch(setTimeTable(timeTable));
   }
 
   return (

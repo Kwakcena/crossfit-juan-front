@@ -1,4 +1,4 @@
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -61,5 +61,19 @@ describe('Form', () => {
 
     expect(actions[0].type).toBe('app/setForm');
     expect(actions[0].payload).toEqual({ name: 'naverId', value: 'rhkrgudwh' });
+  });
+
+  it('"제출하기" 버튼을 누르면 setTimeTable action이 실행된다.', async () => {
+    const { getByText } = renderForm();
+
+    fireEvent.click(getByText('제출하기'));
+
+
+    await waitFor(() => {
+      const actions = store.getActions();
+
+      expect(actions[0].type).toBe('app/setTimeTable');
+      expect(actions[0].payload).toEqual(mockUserList.data.timeTable);
+    })
   });
 });
