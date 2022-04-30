@@ -1,13 +1,17 @@
 import { Container } from '@mui/material';
 
+import { useAppSelector } from '../hooks';
+
 import Form from "./Form";
 import TimeTable from './TimeTable/TimeTable';
 
 export default function Main() {
+  const { timeTable } = useAppSelector((state) => state);
+
   return (
     <Container component="main" maxWidth={false}>
       <Form />
-      <TimeTable timeTable={{}} />
+      <TimeTable timeTable={timeTable} />
     </Container>
   )
 }
