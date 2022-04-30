@@ -1,9 +1,10 @@
-import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useState } from 'react';
+import { ChangeEvent, FormEvent } from 'react';
 
 import { Paper, Box, TextField, Typography, Button } from "@mui/material"
 
 import { loadUserTimeTable } from '../api';
-import { TimeTableInterface } from '../interfaces';
+import { useAppDispatch, useAppSelector } from '../hooks';
+import { setForm, setTimeTable } from '../slices/slice';
 
 const style = {
   paper: {
@@ -23,27 +24,22 @@ const style = {
   },
 } as const;
 
-export default function Form({
-  setTimeTable,
-}: {
-  setTimeTable: Dispatch<SetStateAction<TimeTableInterface>>;
-}) {
-  const [form, setForm] = useState({
-    naverId: '',
-    naverPw: '',
-    articleNumber: '',
-  });
+export default function Form() {
+  const dispatch = useAppDispatch();
 
-  const handleChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [target.name]: target.value });
+  const { form } = useAppSelector((state) => state);
+
+  const handleChange = ({ target: { name, value } }: ChangeEvent<HTMLInputElement>) => {
+    dispatch(setForm({ name, value }));
   }
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
 
-    const data = await loadUserTimeTable(form);
+    // TODO: 입력값에 대한 validation 필요. submit 에 대한 thunk action을 만들어 내부에서 validation 하자.
+    const { timeTable } = await loadUserTimeTable(form);
 
-    setTimeTable(data.timeTable);
+    dispatch(setTimeTable(timeTable));
   }
 
   return (

@@ -1,20 +1,38 @@
-import { fireEvent, render, waitFor } from "@testing-library/react";
+import { fireEvent, render, waitFor } from '@testing-library/react';
+
+import { useSelector, useDispatch } from "react-redux";
 
 import Form from './Form';
 
 import { loadUserTimeTable } from '../api';
 import { mockUserList } from "../../fixtures";
 
+import configureStore, { MockStoreEnhanced } from 'redux-mock-store';
+
+import { initialState } from "../slices/slice";
+
+const mockStore = configureStore();
+
 jest.mock('../api');
+jest.mock('react-redux');
 
 describe('Form', () => {
-  const setTimeTable = jest.fn();
+  let store: MockStoreEnhanced<unknown>;
 
-  const renderForm = () => render(
-    <Form setTimeTable={setTimeTable} />,
-  )
+  const renderForm = () => render((
+    <Form />
+  ))
 
   beforeEach(() => {
+    store = mockStore(() => ({
+      ...initialState,
+    }));
+
+    (useDispatch as jest.Mock)
+      .mockImplementation(() => store.dispatch);
+    (useSelector as jest.Mock)
+      .mockImplementation((selector) => selector(store.getState()));
+
     (loadUserTimeTable as jest.Mock).mockResolvedValue(mockUserList.data);
   })
 
@@ -39,18 +57,23 @@ describe('Form', () => {
       },
     })
 
-    expect(field).toHaveValue('rhkrgudwh');
+    const actions = store.getActions();
+
+    expect(actions[0].type).toBe('app/setForm');
+    expect(actions[0].payload).toEqual({ name: 'naverId', value: 'rhkrgudwh' });
   });
 
-  context('제출 버튼을 클릭하면', () => {
-    it('사용자 예약 현황을 가져와 setTimeTable을 호출한다.', async () => {
-      const { getByText } = renderForm();
+  it('"제출하기" 버튼을 누르면 setTimeTable action이 실행된다.', async () => {
+    const { getByText } = renderForm();
 
-      fireEvent.click(getByText('제출하기'));
+    fireEvent.click(getByText('제출하기'));
 
-      await waitFor(() => {
-        expect(setTimeTable).toBeCalledWith(mockUserList.data.timeTable);
-      })
-    });
+
+    await waitFor(() => {
+      const actions = store.getActions();
+
+      expect(actions[0].type).toBe('app/setTimeTable');
+      expect(actions[0].payload).toEqual(mockUserList.data.timeTable);
+    })
   });
 });
