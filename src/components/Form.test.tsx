@@ -1,4 +1,4 @@
-import { fireEvent, render, waitFor } from "@testing-library/react";
+import { fireEvent, render } from '@testing-library/react';
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -8,11 +8,10 @@ import { loadUserTimeTable } from '../api';
 import { mockUserList } from "../../fixtures";
 
 import configureStore, { MockStoreEnhanced } from 'redux-mock-store';
-import { getDefaultMiddleware } from "@reduxjs/toolkit";
 
 import { initialState } from "../slices/slice";
 
-const mockStore = configureStore(getDefaultMiddleware());
+const mockStore = configureStore();
 
 jest.mock('../api');
 jest.mock('react-redux');
@@ -58,6 +57,9 @@ describe('Form', () => {
       },
     })
 
-    expect(field).toHaveValue('rhkrgudwh');
+    const actions = store.getActions();
+
+    expect(actions[0].type).toBe('app/setForm');
+    expect(actions[0].payload).toEqual({ name: 'naverId', value: 'rhkrgudwh' });
   });
 });

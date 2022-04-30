@@ -2,10 +2,30 @@ import { render } from "@testing-library/react";
 
 import Main from './Main';
 
+import configureStore, { MockStoreEnhanced } from 'redux-mock-store';
+import { useSelector } from "react-redux";
+
+import { initialState } from "../slices/slice";
+
+const mockStore = configureStore();
+
+jest.mock('react-redux');
+
 describe('Main', () => {
   const renderMain = () => render(
     <Main />,
   );
+
+  let store: MockStoreEnhanced<unknown>;
+
+  beforeEach(() => {
+    store = mockStore(() => ({
+      ...initialState,
+    }));
+
+    (useSelector as jest.Mock)
+      .mockImplementation((selector) => selector(store.getState()));
+  })
 
   it('아이디/비밀번호 입력 form을 볼 수 있다.', () => {
     const { container, getByLabelText } = renderMain();
