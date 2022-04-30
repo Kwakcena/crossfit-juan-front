@@ -1,10 +1,21 @@
-import { configureStore } from "@reduxjs/toolkit";
+import {
+  configureStore,
+  ThunkAction,
+} from "@reduxjs/toolkit";
 
-import reducer from './slices/slice';
+import { AnyAction, combineReducers } from "redux";
+
+import appReducer from './slices/slice';
+
+const reducer = combineReducers({
+  app: appReducer,
+})
 
 export const store = configureStore({
   reducer,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({ thunk: true }),
 })
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch;
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, AnyAction>

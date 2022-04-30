@@ -6,7 +6,7 @@ import Form from "./Form";
 import TimeTable from './TimeTable/TimeTable';
 
 export default function Main() {
-  const { timeTable } = useAppSelector((state) => state);
+  const { timeTable } = useAppSelector((state) => state.app);
 
   return (
     <Container component="main" maxWidth={false}>

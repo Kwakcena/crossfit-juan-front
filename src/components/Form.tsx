@@ -2,9 +2,8 @@ import { ChangeEvent, FormEvent } from 'react';
 
 import { Paper, Box, TextField, Typography, Button } from "@mui/material"
 
-import { loadUserTimeTable } from '../api';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { setForm, setTimeTable } from '../slices/slice';
+import { setForm, submitForm } from '../slices/slice';
 
 const style = {
   paper: {
@@ -27,7 +26,7 @@ const style = {
 export default function Form() {
   const dispatch = useAppDispatch();
 
-  const { form } = useAppSelector((state) => state);
+  const { form } = useAppSelector((state) => state.app);
 
   const handleChange = ({ target: { name, value } }: ChangeEvent<HTMLInputElement>) => {
     dispatch(setForm({ name, value }));
@@ -35,11 +34,7 @@ export default function Form() {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-
-    // TODO: 입력값에 대한 validation 필요. submit 에 대한 thunk action을 만들어 내부에서 validation 하자.
-    const { timeTable } = await loadUserTimeTable(form);
-
-    dispatch(setTimeTable(timeTable));
+    dispatch(submitForm());
   }
 
   return (

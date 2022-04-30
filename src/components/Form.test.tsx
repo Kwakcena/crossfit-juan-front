@@ -11,7 +11,10 @@ import configureStore, { MockStoreEnhanced } from 'redux-mock-store';
 
 import { initialState } from "../slices/slice";
 
-const mockStore = configureStore();
+import thunk from 'redux-thunk';
+
+const middlewares = [thunk];
+const mockStore = configureStore(middlewares);
 
 jest.mock('../api');
 jest.mock('react-redux');
@@ -25,7 +28,9 @@ describe('Form', () => {
 
   beforeEach(() => {
     store = mockStore(() => ({
-      ...initialState,
+      app: {
+        ...initialState,
+      },
     }));
 
     (useDispatch as jest.Mock)
@@ -68,12 +73,13 @@ describe('Form', () => {
 
     fireEvent.click(getByText('제출하기'));
 
-
     await waitFor(() => {
       const actions = store.getActions();
 
-      expect(actions[0].type).toBe('app/setTimeTable');
-      expect(actions[0].payload).toEqual(mockUserList.data.timeTable);
+      expect(actions[0].type).toBe('app/setLoadingState');
+      expect(actions[1].type).toBe('app/setTimeTable');
+      expect(actions[1].payload).toEqual(mockUserList.data.timeTable);
+      expect(actions[2].type).toBe('app/setLoadingState');
     })
   });
 });
