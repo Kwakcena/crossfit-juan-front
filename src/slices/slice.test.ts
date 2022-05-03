@@ -1,6 +1,7 @@
 import { waitFor } from '@testing-library/react';
 import configureStore, { MockStoreEnhanced } from 'redux-mock-store';
 import thunk from 'redux-thunk'
+
 import { AppDispatch } from '../store';
 import { loadUserTimeTable } from '../api';
 

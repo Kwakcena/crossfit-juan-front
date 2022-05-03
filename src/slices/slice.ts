@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+
 import { loadUserTimeTable } from "../api";
 import { User } from "../interfaces";
 import { AppThunk } from "../store";
