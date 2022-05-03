@@ -1,7 +1,8 @@
+import { CssBaseline } from "@mui/material";
+
 import Header from "./components/Header";
 import Main from './components/Main';
 
-import { CssBaseline } from "@mui/material";
 import { useAppSelector } from "./hooks";
 import Loading from "./components/Loading/Loading";
 

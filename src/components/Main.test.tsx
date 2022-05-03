@@ -1,13 +1,13 @@
 import { render } from "@testing-library/react";
 
-import Main from './Main';
-
 import configureStore, { MockStoreEnhanced } from 'redux-mock-store';
 import { useSelector } from "react-redux";
 
+import thunk from 'redux-thunk';
+
 import { initialState } from "../slices/slice";
 
-import thunk from 'redux-thunk';
+import Main from './Main';
 import { AppDispatch } from "../store";
 
 const middlewares = [thunk];

@@ -9,6 +9,8 @@ module.exports = {
     'eslint:recommended',
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
+    'plugin:import/recommended',
+    'plugin:import/typescript',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -75,5 +77,11 @@ module.exports = {
     'arrow-spacing': ['error', { 'before': true, 'after': true }],
     // 파일의 마지막에 공백 추가
     'eol-last': ["error", "always"],
+    'import/order': [
+      'error', {
+        groups: ['external', 'internal'],
+        'newlines-between': 'always-and-inside-groups',
+      },
+    ],
   },
 }

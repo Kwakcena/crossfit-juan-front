@@ -3,9 +3,9 @@ import {
 } from "@mui/material";
 import { tableCellClasses } from '@mui/material/TableCell';
 
-import EmptyTable from "./EmptyTable";
-
 import { isEmpty } from 'lodash';
+
+import EmptyTable from "./EmptyTable";
 
 import { User } from '../../interfaces';
 

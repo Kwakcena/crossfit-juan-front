@@ -2,16 +2,16 @@ import { fireEvent, render, waitFor } from '@testing-library/react';
 
 import { useSelector, useDispatch } from "react-redux";
 
+import configureStore, { MockStoreEnhanced } from 'redux-mock-store';
+
+import thunk from 'redux-thunk';
+
 import Form from './Form';
 
 import { loadUserTimeTable } from '../api';
 import { mockUserList } from "../../fixtures";
 
-import configureStore, { MockStoreEnhanced } from 'redux-mock-store';
-
 import { initialState } from "../slices/slice";
-
-import thunk from 'redux-thunk';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
