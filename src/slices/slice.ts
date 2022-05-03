@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import { loadUserTimeTable } from "../api";
-import { User } from "../interfaces";
+import { ClassArticle, User } from "../interfaces";
 import { AppThunk } from "../store";
 
 export interface AppState {
@@ -13,6 +13,7 @@ export interface AppState {
   timeTable: {
     [x: string]: User[],
   }
+  articles: ClassArticle[];
   loading: {
     isLoading: boolean,
     message: string;
@@ -26,6 +27,7 @@ export const initialState: AppState = {
     articleNumber: '',
   },
   timeTable: {},
+  articles: [],
   loading: {
     isLoading: false,
     message: '',
@@ -47,6 +49,7 @@ export const { actions, reducer } = createSlice({
       ...state,
       timeTable,
     }),
+    setArticles: (state, { payload: articles }) => ({ ...state, articles }),
     setLoadingState: (state, { payload }) => ({ ...state, loading: payload }),
   },
 })
@@ -54,6 +57,7 @@ export const { actions, reducer } = createSlice({
 export const {
   setForm,
   setTimeTable,
+  setArticles,
   setLoadingState,
 } = actions;
 

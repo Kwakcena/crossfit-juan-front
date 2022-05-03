@@ -9,6 +9,7 @@ import reducer, {
   initialState,
   setForm,
   setTimeTable,
+  setArticles,
   setLoadingState,
   submitForm,
 } from './slice';
@@ -56,6 +57,21 @@ describe('slice', () => {
       )
 
       expect(timeTable).toEqual(mockData);
+    });
+  });
+
+  describe('setArticles', () => {
+    const mockArticles = [
+      { title: '220504수업예약', articleNumber: '12345' },
+      { title: '220503수업예약', articleNumber: '54321' },
+    ]
+
+    it('articles 의 상태를 변경한다', () => {
+      const { articles } = reducer(
+        initialState, setArticles(mockArticles),
+      )
+
+      expect(articles).toEqual(mockArticles);
     });
   });
 
