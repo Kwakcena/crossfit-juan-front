@@ -8,7 +8,7 @@ import thunk from 'redux-thunk';
 
 import Form from './Form';
 
-import { loadUserTimeTable } from '../api';
+import { getReservationData } from '../services';
 import { mockUserList } from "../../fixtures";
 
 import { initialState, setArticleNumber } from "../slices/slice";
@@ -16,7 +16,7 @@ import { initialState, setArticleNumber } from "../slices/slice";
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
-jest.mock('../api');
+jest.mock('../services');
 jest.mock('react-redux');
 
 describe('Form', () => {
@@ -41,7 +41,10 @@ describe('Form', () => {
     (useSelector as jest.Mock)
       .mockImplementation((selector) => selector(store.getState()));
 
-    (loadUserTimeTable as jest.Mock).mockResolvedValue(mockUserList.data);
+    (getReservationData as jest.Mock).mockResolvedValue({
+      maxPersons: 13,
+      timeTable: mockUserList.data.timeTable,
+    });
   })
 
   it('아이디, 비밀번호, 수업 선택 창을 볼 수 있다', () => {
