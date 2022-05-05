@@ -3,8 +3,7 @@ import configureStore, { MockStoreEnhanced } from 'redux-mock-store';
 import thunk from 'redux-thunk'
 
 import { AppDispatch } from '../store';
-import { loadUserTimeTable } from '../api';
-import { getClassArticles } from '../services';
+import { getClassArticles, getReservationData } from '../services';
 
 import reducer, {
   initialState,
@@ -15,13 +14,13 @@ import reducer, {
   submitForm,
   setArticleNumber,
   loadClassReservationArticles,
+  setMaxPersons,
 } from './slice';
 import { mockUserList } from '../../fixtures';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
-jest.mock('../api');
 jest.mock('../services');
 
 describe('slice', () => {
@@ -34,7 +33,10 @@ describe('slice', () => {
       },
     }));
 
-    (loadUserTimeTable as jest.Mock).mockResolvedValue(mockUserList.data);
+    (getReservationData as jest.Mock).mockResolvedValue({
+      maxPersons: 13,
+      timeTable: mockUserList.data.timeTable,
+    });
     (getClassArticles as jest.Mock).mockResolvedValue([
       { title: '220504수업예약', articleNumber: '12345' },
       { title: '220503수업예약', articleNumber: '12232' },
@@ -79,6 +81,16 @@ describe('slice', () => {
     });
   });
 
+  describe('setMaxPersons', () => {
+    it('최대 인원 수의 상태를 업데이트한다.', () => {
+      const { maxPersons } = reducer(
+        initialState, setMaxPersons(13),
+      );
+
+      expect(maxPersons).toBe(13);
+    });
+  });
+
   describe('setArticles', () => {
     const mockArticles = [
       { title: '220504수업예약', articleNumber: '12345' },
@@ -108,6 +120,10 @@ describe('slice', () => {
         message: '데이터를 불러오고 있습니다...',
       });
     });
+  });
+
+  describe('set', () => {
+
   });
 
   describe('submitForm', () => {
