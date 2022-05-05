@@ -12,6 +12,7 @@ import reducer, {
   setArticles,
   setLoadingState,
   submitForm,
+  setArticleNumber,
 } from './slice';
 import { mockUserList } from '../../fixtures';
 
@@ -40,6 +41,16 @@ describe('slice', () => {
       );
 
       expect(form.naverId).toBe('rhkrgudwh');
+    });
+  });
+
+  describe('setArticleNumber', () => {
+    it('수업 글 번호를 변경한다', () => {
+      const { form } = reducer(
+        initialState, setArticleNumber('12345'),
+      )
+
+      expect(form.articleNumber).toBe('12345');
     });
   });
 
