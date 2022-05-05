@@ -1,29 +1,36 @@
 import { ChangeEvent, FormEvent } from 'react';
 
-import { Paper, Box, TextField, Typography, Button } from "@mui/material"
+import { Paper, Box, TextField, Typography, Button, styled, TypographyProps, PaperProps } from "@mui/material"
 
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { setArticleNumber, setForm, submitForm } from '../slices/slice';
 
 import SelectBox from './SelectBox/SelectBox';
 
-const style = {
-  paper: {
-    my: 3,
+const Wrapper = styled(Paper)<PaperProps>(() => ({
+  margin: '24px 0',
+}))
+
+const Header = styled(Typography)<TypographyProps>(() => ({
+  padding: '16px 0 0 16px',
+}))
+
+const FormBody = styled('form')(({ theme }) => ({
+  padding: theme.spacing(2),
+  display: 'flex',
+  alignItems: 'flex-end',
+  '& > :not(style)': {
+    marginRight: theme.spacing(3),
   },
-  title: {
-    pt: 2,
-    pl: 2,
-  },
-  box: {
-    p: 2,
-    display: 'flex',
-    alignItems: 'flex-end',
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'column',
+    alignItems: 'inherit',
     '& > :not(style)': {
-      mr: 3,
-    },
-  },
-} as const;
+      marginRight: 0,
+      marginBottom: theme.spacing(2),
+    }
+  }
+}))
 
 export default function Form() {
   const dispatch = useAppDispatch();
@@ -44,14 +51,10 @@ export default function Form() {
   }
 
   return (
-    <Paper sx={style.paper} elevation={3}>
-      <Typography sx={style.title} variant="h5" component="h2">
-        아이디/비밀번호 입력
-      </Typography>
-      <Box
+    <Wrapper elevation={3}>
+      <Header variant="h5">아이디/비밀번호 입력</Header>
+      <FormBody
         onSubmit={handleSubmit}
-        sx={style.box}
-        component="form"
         noValidate
         autoComplete="off"
       >
@@ -76,7 +79,7 @@ export default function Form() {
           selected={form.articleNumber}
         />
         <Button type="submit" variant="contained">제출하기</Button>
-      </Box>
-    </Paper>
+      </FormBody>
+    </Wrapper>
   )
 }
