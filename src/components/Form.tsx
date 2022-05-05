@@ -3,7 +3,9 @@ import { ChangeEvent, FormEvent } from 'react';
 import { Paper, Box, TextField, Typography, Button } from "@mui/material"
 
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { setForm, submitForm } from '../slices/slice';
+import { setArticleNumber, setForm, submitForm } from '../slices/slice';
+
+import SelectBox from './SelectBox/SelectBox';
 
 const style = {
   paper: {
@@ -26,10 +28,14 @@ const style = {
 export default function Form() {
   const dispatch = useAppDispatch();
 
-  const { form } = useAppSelector((state) => state.app);
+  const { form, articles } = useAppSelector((state) => state.app);
 
   const handleChange = ({ target: { name, value } }: ChangeEvent<HTMLInputElement>) => {
     dispatch(setForm({ name, value }));
+  }
+
+  const handleChangeArticleNumber = (value: string) => {
+    dispatch(setArticleNumber(value));
   }
 
   const handleSubmit = async (event: FormEvent) => {
@@ -64,12 +70,10 @@ export default function Form() {
           type="password"
           variant="standard"
         />
-        <TextField
-          name="articleNumber"
-          value={form.articleNumber}
-          onChange={handleChange}
-          label="글 번호를 입력해주세요"
-          variant="standard"
+        <SelectBox
+          articles={articles}
+          onChange={handleChangeArticleNumber}
+          selected={form.articleNumber}
         />
         <Button type="submit" variant="contained">제출하기</Button>
       </Box>
