@@ -5,7 +5,7 @@ import { getItem, saveItem } from "../utils/sessionStorage";
 export const getClassArticles = async () => {
   const beforeArticles = getItem('articles');
 
-  if (beforeArticles) {
+  if (beforeArticles && beforeArticles.length > 0) {
     return beforeArticles;
   }
 
