@@ -50,7 +50,7 @@ export const { actions, reducer } = createSlice({
       form: {
         ...state.form,
         articleNumber,
-      }
+      },
     }),
     setTimeTable: (state, { payload: timeTable }) => ({
       ...state,

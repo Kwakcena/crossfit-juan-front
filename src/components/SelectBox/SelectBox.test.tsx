@@ -13,7 +13,7 @@ describe('SelectBox component', () => {
       articles={given.articles}
       selected={given.selected}
       onChange={handleChange}
-    />
+    />,
   )
 
   it('label을 볼 수 있다', () => {
