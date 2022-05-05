@@ -1,18 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { getClassReservationArticles, loadUserTimeTable } from "../api";
-import { ClassArticle, User } from "../interfaces";
+import { ClassArticle, Form, User } from "../interfaces";
+import { getClassArticles, getReservationData } from "../services";
+
 import { AppThunk } from "../store";
 
 export interface AppState {
-  form: {
-    naverId: string;
-    naverPw: string;
-    articleNumber: string;
-  }
+  form: Form,
   timeTable: {
     [x: string]: User[],
   }
+  maxPersons: number;
   articles: ClassArticle[];
   loading: {
     isLoading: boolean,
@@ -27,6 +25,7 @@ export const initialState: AppState = {
     articleNumber: '',
   },
   timeTable: {},
+  maxPersons: 0,
   articles: [],
   loading: {
     isLoading: false,
@@ -56,6 +55,7 @@ export const { actions, reducer } = createSlice({
       ...state,
       timeTable,
     }),
+    setMaxPersons: (state, { payload: maxPersons }) => ({ ...state, maxPersons }),
     setArticles: (state, { payload: articles }) => ({ ...state, articles }),
     setLoadingState: (state, { payload }) => ({ ...state, loading: payload }),
   },
@@ -65,6 +65,7 @@ export const {
   setForm,
   setArticleNumber,
   setTimeTable,
+  setMaxPersons,
   setArticles,
   setLoadingState,
 } = actions;
@@ -79,8 +80,10 @@ export const submitForm = (): AppThunk => async (dispatch, getState) => {
   }));
 
   try {
-    const { timeTable } = await loadUserTimeTable(form);
+    const { timeTable, maxPersons } = await getReservationData(form);
+
     dispatch(setTimeTable(timeTable));
+    dispatch(setMaxPersons(maxPersons));
   } catch (err) {
     // TODO: Error 처리를 해야 함.
     console.error(err);
@@ -99,8 +102,9 @@ export const loadClassReservationArticles = (): AppThunk => async (dispatch) => 
   }));
 
   try {
-    const data = await getClassReservationArticles();
-    dispatch(setArticles(data));
+    const articles = await getClassArticles();
+
+    dispatch(setArticles(articles));
   } catch (err) {
     // TODO: Error 처리를 해야 함.
     console.error(err);

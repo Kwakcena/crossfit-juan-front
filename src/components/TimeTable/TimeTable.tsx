@@ -1,9 +1,10 @@
+import { useMemo } from "react";
+import { isEmpty } from 'lodash';
+
 import {
   Table, TableCell, TableContainer, TableBody, TableHead, TableRow, Typography, Paper,
 } from "@mui/material";
 import { tableCellClasses } from '@mui/material/TableCell';
-
-import { isEmpty } from 'lodash';
 
 import EmptyTable from "./EmptyTable";
 
@@ -35,9 +36,14 @@ interface Props {
   timeTable: {
     [x: string]: User[]
   }
+  maxPersons: number;
 }
 
-export default function TimeTable({ timeTable }: Props) {
+const getCellNumbers = (max: number) => Array.from({ length: max }, (_, i) => i + 1);
+
+export default function TimeTable({ timeTable, maxPersons }: Props) {
+  const persons = useMemo(() => getCellNumbers(maxPersons), [maxPersons]);
+
   return (
     <TableContainer component={Paper} elevation={3}>
       <Typography sx={style.title} variant="h5" component="h2">
@@ -47,6 +53,9 @@ export default function TimeTable({ timeTable }: Props) {
         <TableHead>
           <TableRow sx={style.tableRow}>
             <TableCell sx={style.tableCellText}>수업 시간</TableCell>
+            {persons.map((count) => (
+              <TableCell key={count} sx={{ textAlign: 'center' }}>{count}</TableCell>
+            ))}
           </TableRow>
         </TableHead>
         {isEmpty(timeTable) ? (

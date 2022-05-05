@@ -8,7 +8,7 @@ interface RequestData {
   naverPw: string;
 }
 
-export const loadUserTimeTable = async (requestData: RequestData) => {
+export const fetchUserTimeTable = async (requestData: RequestData) => {
   const url = `http://localhost:3000/users`;
 
   try {
