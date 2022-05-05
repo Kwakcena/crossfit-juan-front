@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { getClassReservationArticles, loadUserTimeTable } from "../api";
+import { loadUserTimeTable } from "../api";
 import { ClassArticle, User } from "../interfaces";
+import { getClassArticles } from "../services";
 import { AppThunk } from "../store";
 
 export interface AppState {
@@ -99,8 +100,9 @@ export const loadClassReservationArticles = (): AppThunk => async (dispatch) => 
   }));
 
   try {
-    const data = await getClassReservationArticles();
-    dispatch(setArticles(data));
+    const articles = await getClassArticles();
+
+    dispatch(setArticles(articles));
   } catch (err) {
     // TODO: Error 처리를 해야 함.
     console.error(err);

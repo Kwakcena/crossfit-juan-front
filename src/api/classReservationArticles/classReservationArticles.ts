@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const getClassReservationArticles = async () => {
+export const fetchClassReservationArticles = async () => {
   const url = 'http://localhost:3000/articles';
 
   try {

@@ -3,7 +3,8 @@ import configureStore, { MockStoreEnhanced } from 'redux-mock-store';
 import thunk from 'redux-thunk'
 
 import { AppDispatch } from '../store';
-import { loadUserTimeTable, getClassReservationArticles } from '../api';
+import { loadUserTimeTable } from '../api';
+import { getClassArticles } from '../services';
 
 import reducer, {
   initialState,
@@ -21,6 +22,7 @@ const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
 jest.mock('../api');
+jest.mock('../services');
 
 describe('slice', () => {
   let store: MockStoreEnhanced<unknown, AppDispatch>;
@@ -33,7 +35,7 @@ describe('slice', () => {
     }));
 
     (loadUserTimeTable as jest.Mock).mockResolvedValue(mockUserList.data);
-    (getClassReservationArticles as jest.Mock).mockResolvedValue([
+    (getClassArticles as jest.Mock).mockResolvedValue([
       { title: '220504수업예약', articleNumber: '12345' },
       { title: '220503수업예약', articleNumber: '12232' },
       { title: '220502수업예약', articleNumber: '33232' },
