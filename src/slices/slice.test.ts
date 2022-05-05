@@ -122,10 +122,6 @@ describe('slice', () => {
     });
   });
 
-  describe('set', () => {
-
-  });
-
   describe('submitForm', () => {
     it('form을 제출하면 setTimeTable action을 실행한다.', async () => {
       store.dispatch(submitForm());
