@@ -3,7 +3,7 @@ import configureStore, { MockStoreEnhanced } from 'redux-mock-store';
 import thunk from 'redux-thunk'
 
 import { AppDispatch } from '../store';
-import { loadUserTimeTable } from '../api';
+import { loadUserTimeTable, getClassReservationArticles } from '../api';
 
 import reducer, {
   initialState,
@@ -13,6 +13,7 @@ import reducer, {
   setLoadingState,
   submitForm,
   setArticleNumber,
+  loadClassReservationArticles,
 } from './slice';
 import { mockUserList } from '../../fixtures';
 
@@ -32,6 +33,11 @@ describe('slice', () => {
     }));
 
     (loadUserTimeTable as jest.Mock).mockResolvedValue(mockUserList.data);
+    (getClassReservationArticles as jest.Mock).mockResolvedValue([
+      { title: '220504수업예약', articleNumber: '12345' },
+      { title: '220503수업예약', articleNumber: '12232' },
+      { title: '220502수업예약', articleNumber: '33232' },
+    ])
   })
 
   describe('setForm', () => {
@@ -111,6 +117,20 @@ describe('slice', () => {
 
         expect(actions[0].type).toBe('app/setLoadingState');
         expect(actions[1].type).toBe('app/setTimeTable');
+        expect(actions[2].type).toBe('app/setLoadingState');
+      })
+    });
+  });
+
+  describe('loadClassReservationArticles', () => {
+    it('수업 예약 글 목록을 가져오면 setArticles action을 실행한다.', async () => {
+      store.dispatch(loadClassReservationArticles());
+
+      await waitFor(() => {
+        const actions = store.getActions();
+
+        expect(actions[0].type).toBe('app/setLoadingState');
+        expect(actions[1].type).toBe('app/setArticles');
         expect(actions[2].type).toBe('app/setLoadingState');
       })
     });

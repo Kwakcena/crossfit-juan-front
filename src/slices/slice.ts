@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { loadUserTimeTable } from "../api";
+import { getClassReservationArticles, loadUserTimeTable } from "../api";
 import { ClassArticle, User } from "../interfaces";
 import { AppThunk } from "../store";
 
@@ -81,6 +81,27 @@ export const submitForm = (): AppThunk => async (dispatch, getState) => {
   try {
     const { timeTable } = await loadUserTimeTable(form);
     dispatch(setTimeTable(timeTable));
+  } catch (err) {
+    // TODO: Error 처리를 해야 함.
+    console.error(err);
+  } finally {
+    dispatch(setLoadingState({
+      isLoading: false,
+      message: '',
+    }));
+  }
+}
+
+export const loadClassReservationArticles = (): AppThunk => async (dispatch) => {
+  dispatch(setLoadingState({
+    isLoading: true,
+    message: '수업 예약 글 목록을 불러오고 있습니다...',
+  }));
+
+  try {
+    const data = await getClassReservationArticles();
+    console.log('data: ', data);
+    dispatch(setArticles(data));
   } catch (err) {
     // TODO: Error 처리를 해야 함.
     console.error(err);
