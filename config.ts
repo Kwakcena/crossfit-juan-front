@@ -2,7 +2,7 @@ type STAGE = 'development' | 'production';
 
 const apiUrls: Record<STAGE, string> = {
   development: 'http://localhost:3000',
-  production: 'http://3.38.210.236',
+  production: 'https://3.38.210.236',
 }
 
 const getStage = () => {
