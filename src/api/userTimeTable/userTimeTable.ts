@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { BASE_URL } from '../../configs/config';
+import { API_URL } from '../../../config';
 
 interface RequestData {
   articleNumber: string;
@@ -9,7 +9,7 @@ interface RequestData {
 }
 
 export const fetchUserTimeTable = async (requestData: RequestData) => {
-  const url = `http://localhost:3000/users`;
+  const url = `${API_URL}/users`;
 
   try {
     const { data } = await axios.post(url, requestData);

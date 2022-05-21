@@ -1,7 +1,9 @@
 import axios from "axios";
 
+import { API_URL } from "../../../config";
+
 export const fetchClassReservationArticles = async () => {
-  const url = 'http://localhost:3000/articles';
+  const url = `${API_URL}/articles`;
 
   try {
     const { data } = await axios.get(url);
