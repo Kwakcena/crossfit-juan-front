@@ -2,7 +2,7 @@ name: Crossfit juan deploy
 
 on:
   push:
-    branches: [ main ]
+    pull_request: [ main ]
 
 jobs:
   build_and_deploy:
@@ -27,7 +27,6 @@ jobs:
 
     - name: Build
       run: |
-        rm -rf ./dist
         npm run build
     
     - name: Deploy
