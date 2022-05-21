@@ -28,8 +28,8 @@ const FormBody = styled('form')(({ theme }) => ({
     '& > :not(style)': {
       marginRight: 0,
       marginBottom: theme.spacing(2),
-    }
-  }
+    },
+  },
 }))
 
 export default function Form() {
