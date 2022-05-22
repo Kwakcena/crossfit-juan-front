@@ -6,9 +6,11 @@ import {
 import { AnyAction, combineReducers } from "redux";
 
 import appReducer from './slices/slice';
+import pageReducer from './slices/page';
 
 const reducer = combineReducers({
   app: appReducer,
+  page: pageReducer,
 })
 
 export const store = configureStore({

@@ -4,6 +4,7 @@ import { ClassArticle, Form, User } from "../interfaces";
 import { getClassArticles, getReservationData } from "../services";
 
 import { AppThunk } from "../store";
+import { notify } from "./page";
 
 export interface AppState {
   form: Form,
@@ -86,6 +87,10 @@ export const submitForm = (): AppThunk => async (dispatch, getState) => {
     dispatch(setMaxPersons(maxPersons));
   } catch (err) {
     // TODO: Error 처리를 해야 함.
+    dispatch(notify({
+      title: 'Error',
+      message: '일시적인 장애가 발생했습니다.\n관리자에게 문의 해 주세요.',
+    }));
     console.error(err);
   } finally {
     dispatch(setLoadingState({
@@ -107,6 +112,10 @@ export const loadClassReservationArticles = (): AppThunk => async (dispatch) => 
     dispatch(setArticles(articles));
   } catch (err) {
     // TODO: Error 처리를 해야 함.
+    dispatch(notify({
+      title: 'Error',
+      message: '일시적인 장애가 발생했습니다.\n관리자에게 문의 해 주세요.',
+    }));
     console.error(err);
   } finally {
     dispatch(setLoadingState({

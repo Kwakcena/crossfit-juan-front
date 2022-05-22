@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent } from 'react';
 
 import { Paper, Box, TextField, Typography, Button, styled, TypographyProps, PaperProps } from "@mui/material"
 
-import { useAppDispatch, useAppSelector } from '../hooks';
+import { useAppDispatch, useAppSelector } from '../hooks/hooks';
 import { setArticleNumber, setForm, submitForm } from '../slices/slice';
 
 import SelectBox from './SelectBox/SelectBox';

@@ -1,6 +1,6 @@
 import { Container } from '@mui/material';
 
-import { useAppSelector } from '../hooks';
+import { useAppSelector } from '../hooks/hooks';
 
 import Form from "./Form";
 import TimeTable from './TimeTable/TimeTable';
