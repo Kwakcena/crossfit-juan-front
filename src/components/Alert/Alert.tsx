@@ -30,14 +30,14 @@ const style = `
 interface Props {
   title?: string;
   text?: string;
-};
+}
 
 const Contents = styled.div`
   white-space: pre-line;
 `;
 
 export default function Alert({
-  title, text
+  title, text,
 }: Props) {
   return swal.fire({
     html: (
