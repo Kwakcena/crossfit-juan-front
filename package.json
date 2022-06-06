@@ -6,8 +6,6 @@
   "scripts": {
     "dev": "webpack serve --mode=development --open",
     "build": "webpack --mode=production",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
     "test": "jest",
     "lint": "npx eslint . --ext .ts,.tsx,.js,.jsx"
   },
