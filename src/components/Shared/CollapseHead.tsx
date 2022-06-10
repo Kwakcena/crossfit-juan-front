@@ -6,7 +6,9 @@ import { ExpandLess, ExpandMore } from '@mui/icons-material';
 
 const Button = styled.button`
   width: 100%;
-  padding: 8px 16px;
+  padding: 4px 16px;
+  border: 0;
+  background: none;
   > span {
     display: flex;
     align-items: center;
