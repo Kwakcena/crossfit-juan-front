@@ -9,15 +9,14 @@ const List = styled.ul`
   margin: 0;
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 16px;
-
-  border: 1px solid gray;
+  background-color: #f2f2f2;
+  margin: 0 -2px;
 `
 
 const Item = styled.li`
   position: relative;
   text-align: center;
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   padding: 8px 0;
   width: 25%;
   @media (min-width: 375px) {
@@ -34,9 +33,9 @@ const UserCount = styled.span`
 
 const EmptyMessage = styled.div`
   text-align: center;
-  border: 1px solid gray;
   padding: 8px 0;
-  margin-bottom: 16px;
+  background-color: #f2f2f2;
+  margin: 0 -2px;
 `
 
 interface Props {
