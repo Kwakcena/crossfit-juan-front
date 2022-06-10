@@ -1,4 +1,5 @@
 import { fireEvent, render } from "@testing-library/react";
+
 import CollapseHead from "./CollapseHead";
 
 describe('CollapseHead', () => {
@@ -10,7 +11,7 @@ describe('CollapseHead', () => {
       summary={given.summary}
       opened={true}
       onClick={handleClick}
-    />
+    />,
   )
 
   context('title이 있으면', () => {

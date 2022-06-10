@@ -1,6 +1,7 @@
 import { Container, Divider, Paper, PaperProps, styled } from '@mui/material';
 
 import { isMobile } from 'react-device-detect';
+
 import { TIMES } from '../constants/times';
 
 import { useAppSelector } from '../hooks/hooks';

@@ -1,4 +1,5 @@
 import { fireEvent, render } from "@testing-library/react";
+
 import { mockUserList } from "../../../fixtures";
 import Reservation from "./Reservation";
 
@@ -7,7 +8,7 @@ describe('Reservation', () => {
     <Reservation
       time={given.time}
       users={given.users}
-    />
+    />,
   )
 
   context('시간이 주어지면', () => {

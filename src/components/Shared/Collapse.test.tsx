@@ -1,4 +1,5 @@
 import { render } from "@testing-library/react";
+
 import Collapse from "./Collapse";
 
 describe('Collapse', () => {
@@ -12,7 +13,7 @@ describe('Collapse', () => {
       onClick={handleClick}
     >
       <div>Hello world</div>
-    </Collapse>
+    </Collapse>,
   );
 
   context('title이 주어지면', () => {

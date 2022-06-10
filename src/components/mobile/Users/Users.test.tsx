@@ -1,10 +1,11 @@
 import { render } from "@testing-library/react";
+
 import { mockUserList } from "../../../../fixtures";
 import Users from "./Users";
 
 describe('Users', () => {
   const renderUsers = () => render(
-    <Users users={given.users} />
+    <Users users={given.users} />,
   )
 
   context('해당 시간의 예약자 데이터가 있으면', () => {
