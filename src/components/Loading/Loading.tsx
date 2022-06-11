@@ -1,10 +1,15 @@
+import styled from '@emotion/styled';
+
 import { Backdrop, CircularProgress } from "@mui/material"
 
-import styled from '@emotion/styled';
+import { isMobile } from "react-device-detect";
 
 const Text = styled.span`
   font-size: 1.5rem;
   margin-top: 20px;
+  ${isMobile && `
+    font-size: 1.1rem;
+  `}
 `
 
 export default function Loading({
