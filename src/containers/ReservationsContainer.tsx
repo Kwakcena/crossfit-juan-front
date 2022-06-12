@@ -5,6 +5,8 @@ import TimeTable from "../components/TimeTable/TimeTable"
 
 import { useAppSelector } from "../hooks/hooks"
 
+import { mockUserList } from "../../fixtures"
+
 export default function ReservationsContainer() {
   const { timeTable, maxPersons } = useAppSelector((state) => state.app);
 
@@ -13,7 +15,7 @@ export default function ReservationsContainer() {
       {isMobile ? (
         <ReservationBoard timeTable={timeTable} />
       ) : (
-        <TimeTable timeTable={timeTable} maxPersons={maxPersons} />
+        <TimeTable timeTable={mockUserList.data.timeTable} maxPersons={maxPersons} />
       )}
     </>
   )

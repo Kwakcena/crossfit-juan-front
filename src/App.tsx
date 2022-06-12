@@ -1,14 +1,25 @@
 import { useEffect } from "react";
 import { CssBaseline } from "@mui/material";
 
+import styled from "@emotion/styled";
+
 import Header from "./components/Header";
 import Main from './components/Main';
 import Loading from "./components/Loading/Loading";
+import Footer from "./components/Footer/Footer";
 
 import { useAppDispatch, useAppSelector } from "./hooks/hooks";
+import { loadClassReservationArticles } from "./slices/slice";
+
 import usePage from "./hooks/usePage";
 
-import { loadClassReservationArticles } from "./slices/slice";
+const Wrap = styled.div`
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  position: relative;
+  width: 100%;
+`
 
 export default function App() {
   usePage();
@@ -25,8 +36,11 @@ export default function App() {
     <>
       <CssBaseline />
       {isLoading && <Loading text={message} />}
-      <Header />
-      <Main />
+      <Wrap>
+        <Header />
+        <Main />
+        <Footer />
+      </Wrap>
     </>
   )
 }
