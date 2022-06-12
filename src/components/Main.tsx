@@ -1,4 +1,4 @@
-import { Container, Divider, Paper, PaperProps, styled } from '@mui/material';
+import { Container, Divider, Paper, PaperProps, styled, Typography } from '@mui/material';
 
 import { isMobile } from 'react-device-detect';
 
@@ -22,6 +22,9 @@ export default function Main() {
       <Form />
       {isMobile ? (
         <Wrapper elevation={3}>
+          <Typography sx={{ pt: 2, pl: 2 }} variant="h6" component="h2">
+            예약자 현황
+          </Typography>
           {TIMES.map((time) => (
             <div key={time}>
               <Reservation
