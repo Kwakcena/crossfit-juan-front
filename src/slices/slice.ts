@@ -11,6 +11,7 @@ export interface AppState {
   timeTable: {
     [x: string]: User[],
   }
+  failUsers: User[],
   articles: ClassArticle[];
   loading: {
     isLoading: boolean,
@@ -25,6 +26,7 @@ export const initialState: AppState = {
     articleNumber: '',
   },
   timeTable: {},
+  failUsers: [],
   articles: [],
   loading: {
     isLoading: false,
@@ -54,6 +56,10 @@ export const { actions, reducer } = createSlice({
       ...state,
       timeTable,
     }),
+    setFailUsers: (state, { payload: failUsers }) => ({
+      ...state,
+      failUsers,
+    }),
     setArticles: (state, { payload: articles }) => ({ ...state, articles }),
     setLoadingState: (state, { payload }) => ({ ...state, loading: payload }),
   },
@@ -63,6 +69,7 @@ export const {
   setForm,
   setArticleNumber,
   setTimeTable,
+  setFailUsers,
   setArticles,
   setLoadingState,
 } = actions;

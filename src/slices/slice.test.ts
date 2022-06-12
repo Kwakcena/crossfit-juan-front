@@ -9,6 +9,7 @@ import reducer, {
   initialState,
   setForm,
   setTimeTable,
+  setFailUsers,
   setArticles,
   setLoadingState,
   submitForm,
@@ -34,6 +35,7 @@ describe('slice', () => {
 
     (getReservationData as jest.Mock).mockResolvedValue({
       timeTable: mockUserList.data.timeTable,
+      failUsers: mockUserList.data.wrongData,
     });
     (getClassArticles as jest.Mock).mockResolvedValue([
       { title: '220504수업예약', articleNumber: '12345' },
@@ -77,6 +79,22 @@ describe('slice', () => {
 
       expect(timeTable).toEqual(mockData);
     });
+  });
+
+
+  describe('setFailUsers', () => {
+    it('예약 실패한 사용자를 update 한다.', () => {
+      const mockData = {
+        ...mockUserList.data.wrongData,
+      }
+
+      const { failUsers } = reducer(
+        initialState, setFailUsers(mockData),
+      );
+
+      expect(failUsers).toEqual(mockData);
+    });
+
   });
 
   describe('setArticles', () => {
