@@ -1,19 +1,19 @@
 import { isMobile } from "react-device-detect"
 
-import ReservationBoard from "../components/mobile/ReservationBoard/ReservationBoard"
-import TimeTable from "../components/TimeTable/TimeTable"
+import ReservationBoardMobile from "../components/mobile/ReservationBoard/ReservationBoard"
+import ReservationBoardPC from "../components/ReservationBoard/ReservationBoard"
 
 import { useAppSelector } from "../hooks/hooks"
 
 export default function ReservationsContainer() {
-  const { timeTable, maxPersons } = useAppSelector((state) => state.app);
+  const { timeTable } = useAppSelector((state) => state.app);
 
   return (
     <>
       {isMobile ? (
-        <ReservationBoard timeTable={timeTable} />
+        <ReservationBoardMobile timeTable={timeTable} />
       ) : (
-        <TimeTable timeTable={timeTable} maxPersons={maxPersons} />
+        <ReservationBoardPC timeTable={timeTable} />
       )}
     </>
   )

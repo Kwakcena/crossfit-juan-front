@@ -1,14 +1,14 @@
-import { useMemo } from "react";
 import { isEmpty } from 'lodash';
 
 import {
-  Table, TableCell, TableContainer, TableBody, TableHead, TableRow, Typography, Paper,
+  Table, TableCell, TableContainer, TableBody, TableHead, TableRow, Paper, styled, TableCellProps, tableCellClasses,
 } from "@mui/material";
-import { tableCellClasses } from '@mui/material/TableCell';
 
-import EmptyTable from "./EmptyTable";
+import EmptyTable from "./ReservationEmpty";
 
 import { User } from '../../interfaces';
+
+import { TIMES } from "../../constants/times";
 
 const style = {
   paper: {
@@ -26,54 +26,59 @@ const style = {
   tableRow: {
     borderBottom: '1px solid rgba(224, 224, 224, 1)',
   },
+  tableHeader: {
+    fontWeight: 400,
+    fontSize: '1.5rem',
+  },
   tableCellText: {
     fontWeight: 'bold',
     fontSize: '18px',
   },
 }
 
+const UserCell = styled(TableCell)<TableCellProps>(() => ({
+  position: 'relative',
+  '> span': {
+    position: 'absolute',
+    fontSize: '0.7rem',
+    top: '5px',
+    left: '6px',
+  },
+}))
+
 interface Props {
   timeTable: {
     [x: string]: User[]
   }
-  maxPersons: number;
 }
 
-const getCellNumbers = (max: number) => Array.from({ length: max }, (_, i) => i + 1);
-
-export default function TimeTable({ timeTable, maxPersons }: Props) {
-  const persons = useMemo(() => getCellNumbers(maxPersons), [maxPersons]);
-
+export default function ReservationBoard({ timeTable }: Props) {
   return (
     <TableContainer component={Paper} elevation={3}>
-      <Typography sx={style.title} variant="h5" component="h2">
-        예약자 현황
-      </Typography>
       <Table aria-label="simple table" sx={style.table}>
         <TableHead>
           <TableRow sx={style.tableRow}>
-            <TableCell sx={style.tableCellText}>수업 시간</TableCell>
-            {persons.map((count) => (
-              <TableCell key={count} sx={{ textAlign: 'center' }}>{count}</TableCell>
-            ))}
+            <TableCell colSpan={3} sx={style.tableHeader}>
+              예약자 현황
+            </TableCell>
           </TableRow>
         </TableHead>
         {isEmpty(timeTable) ? (
           <EmptyTable />
         ) : (
-          // TODO: 다른 컴포넌트로 뺄 것
           <TableBody>
-            {Object.entries(timeTable).map(([time, users]) => (
+            {TIMES.map((time) => (
               <TableRow sx={style.tableRow} key={time}>
                 <TableCell sx={style.tableCellText} component="th" scope="row">
                   {time}
                 </TableCell>
-                {users.map((user) => (
-                  <TableCell key={user.phone} align="center">
+                {timeTable[time].map((user, index) => (
+                  <UserCell key={user.phone} align="center">
+                    <span>{index + 1}</span>
                     {user.name}
                     <br />
                     ({user.phone})
-                  </TableCell>
+                  </UserCell>
                 ))}
               </TableRow>
             ))}

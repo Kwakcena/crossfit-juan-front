@@ -1,6 +1,6 @@
 import { TableBody, TableRow, TableCell } from '@mui/material';
 
-export default function EmptyTable() {
+export default function ReservationEmpty() {
   return (
     <TableBody>
       <TableRow>

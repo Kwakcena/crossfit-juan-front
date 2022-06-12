@@ -19,7 +19,6 @@ describe('getReservationData service', () => {
 
     const result = await getReservationData(form);
 
-    expect(result.maxPersons).toBe(13);
     expect(result.timeTable).toEqual(mockUserList.data.timeTable);
   });
 });
