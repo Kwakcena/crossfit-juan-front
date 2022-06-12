@@ -43,6 +43,7 @@ describe('Form', () => {
 
     (getReservationData as jest.Mock).mockResolvedValue({
       timeTable: mockUserList.data.timeTable,
+      failUsers: mockUserList.data.wrongData,
     });
   })
 

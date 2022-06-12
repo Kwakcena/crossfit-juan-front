@@ -20,5 +20,6 @@ describe('getReservationData service', () => {
     const result = await getReservationData(form);
 
     expect(result.timeTable).toEqual(mockUserList.data.timeTable);
+    expect(result.failUsers).toEqual(mockUserList.data.wrongData);
   });
 });

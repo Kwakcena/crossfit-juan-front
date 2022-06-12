@@ -84,9 +84,10 @@ export const submitForm = (): AppThunk => async (dispatch, getState) => {
   }));
 
   try {
-    const { timeTable } = await getReservationData(form);
+    const { timeTable, failUsers } = await getReservationData(form);
 
     dispatch(setTimeTable(timeTable));
+    dispatch(setFailUsers(failUsers));
   } catch (err) {
     // TODO: Error 처리를 해야 함.
     dispatch(notify({
