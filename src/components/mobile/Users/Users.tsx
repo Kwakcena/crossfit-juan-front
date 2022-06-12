@@ -10,7 +10,6 @@ const List = styled.ul`
   display: flex;
   flex-wrap: wrap;
   background-color: #f2f2f2;
-  margin: 0 -2px;
 `
 
 const Item = styled.li`
@@ -35,7 +34,6 @@ const EmptyMessage = styled.div`
   text-align: center;
   padding: 8px 0;
   background-color: #f2f2f2;
-  margin: 0 -2px;
 `
 
 interface Props {
