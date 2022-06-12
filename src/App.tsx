@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from "./hooks/hooks";
 import { loadClassReservationArticles } from "./slices/slice";
 
 import usePage from "./hooks/usePage";
+import { css, Global } from "@emotion/react";
 
 const Wrap = styled.div`
   margin: 0;
@@ -35,6 +36,11 @@ export default function App() {
   return (
     <>
       <CssBaseline />
+      <Global styles={css`
+        html, body, #app {
+          height: 100%;
+        }
+      `} />
       {isLoading && <Loading text={message} />}
       <Wrap>
         <Header />
