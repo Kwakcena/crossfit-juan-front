@@ -25,7 +25,6 @@ describe('ReservationsContainer', () => {
     store = mockStore(() => ({
       app: {
         timeTable: given.timeTable,
-        maxPersons: given.maxPersons,
       },
     }));
 

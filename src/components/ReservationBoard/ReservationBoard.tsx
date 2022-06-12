@@ -43,7 +43,7 @@ const UserCell = styled(TableCell)<TableCellProps>(() => ({
     fontSize: '0.7rem',
     top: '5px',
     left: '6px',
-  }
+  },
 }))
 
 interface Props {

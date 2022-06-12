@@ -14,7 +14,6 @@ import reducer, {
   submitForm,
   setArticleNumber,
   loadClassReservationArticles,
-  setMaxPersons,
 } from './slice';
 import { mockUserList } from '../../fixtures';
 
@@ -34,7 +33,6 @@ describe('slice', () => {
     }));
 
     (getReservationData as jest.Mock).mockResolvedValue({
-      maxPersons: 13,
       timeTable: mockUserList.data.timeTable,
     });
     (getClassArticles as jest.Mock).mockResolvedValue([
@@ -81,16 +79,6 @@ describe('slice', () => {
     });
   });
 
-  describe('setMaxPersons', () => {
-    it('최대 인원 수의 상태를 업데이트한다.', () => {
-      const { maxPersons } = reducer(
-        initialState, setMaxPersons(13),
-      );
-
-      expect(maxPersons).toBe(13);
-    });
-  });
-
   describe('setArticles', () => {
     const mockArticles = [
       { title: '220504수업예약', articleNumber: '12345' },
@@ -131,8 +119,7 @@ describe('slice', () => {
 
         expect(actions[0].type).toBe('app/setLoadingState');
         expect(actions[1].type).toBe('app/setTimeTable');
-        expect(actions[2].type).toBe('app/setMaxPersons');
-        expect(actions[3].type).toBe('app/setLoadingState');
+        expect(actions[2].type).toBe('app/setLoadingState');
       })
     });
   });

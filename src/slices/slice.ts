@@ -11,7 +11,6 @@ export interface AppState {
   timeTable: {
     [x: string]: User[],
   }
-  maxPersons: number;
   articles: ClassArticle[];
   loading: {
     isLoading: boolean,
@@ -26,7 +25,6 @@ export const initialState: AppState = {
     articleNumber: '',
   },
   timeTable: {},
-  maxPersons: 0,
   articles: [],
   loading: {
     isLoading: false,
@@ -56,7 +54,6 @@ export const { actions, reducer } = createSlice({
       ...state,
       timeTable,
     }),
-    setMaxPersons: (state, { payload: maxPersons }) => ({ ...state, maxPersons }),
     setArticles: (state, { payload: articles }) => ({ ...state, articles }),
     setLoadingState: (state, { payload }) => ({ ...state, loading: payload }),
   },
@@ -66,7 +63,6 @@ export const {
   setForm,
   setArticleNumber,
   setTimeTable,
-  setMaxPersons,
   setArticles,
   setLoadingState,
 } = actions;
@@ -81,10 +77,9 @@ export const submitForm = (): AppThunk => async (dispatch, getState) => {
   }));
 
   try {
-    const { timeTable, maxPersons } = await getReservationData(form);
+    const { timeTable } = await getReservationData(form);
 
     dispatch(setTimeTable(timeTable));
-    dispatch(setMaxPersons(maxPersons));
   } catch (err) {
     // TODO: Error 처리를 해야 함.
     dispatch(notify({

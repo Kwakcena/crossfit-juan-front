@@ -42,7 +42,6 @@ describe('Form', () => {
       .mockImplementation((selector) => selector(store.getState()));
 
     (getReservationData as jest.Mock).mockResolvedValue({
-      maxPersons: 13,
       timeTable: mockUserList.data.timeTable,
     });
   })
@@ -85,8 +84,7 @@ describe('Form', () => {
       expect(actions[0].type).toBe('app/setLoadingState');
       expect(actions[1].type).toBe('app/setTimeTable');
       expect(actions[1].payload).toEqual(mockUserList.data.timeTable);
-      expect(actions[2].type).toBe('app/setMaxPersons');
-      expect(actions[3].type).toBe('app/setLoadingState');
+      expect(actions[2].type).toBe('app/setLoadingState');
     })
   });
 
