@@ -1,9 +1,10 @@
 import { screen, render, fireEvent, waitFor } from "@testing-library/react";
+
 import ReservationBoard from "./ReservationBoard";
 
 describe('ReservationBoard', () => {
   const renderReservationBoard = () => render(
-    <ReservationBoard timeTable={given.timeTable} />
+    <ReservationBoard timeTable={given.timeTable} />,
   );
 
   context('특정 시간에 예약자가 없으면', () => {
@@ -26,7 +27,7 @@ describe('ReservationBoard', () => {
         { name: "김보라", phone: "7477", date: "2022.03.29. 22:30" },
         { name: "함새암", phone: "8368", date: "2022.03.29. 22:30" },
         { name: "김민주", phone: "4144", date: "2022.03.29. 22:33" },
-      ]
+      ],
     }));
 
     it('해당 시간의 총 인원수를 볼 수 있다.', () => {

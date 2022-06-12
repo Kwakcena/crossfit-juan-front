@@ -16,7 +16,7 @@ jest.mock('react-redux');
 
 describe('ReservationsContainer', () => {
   const renderReservationsContainer = () => render(
-    <ReservationsContainer />
+    <ReservationsContainer />,
   );
 
   let store: MockStoreEnhanced<unknown, AppDispatch>;
@@ -26,7 +26,7 @@ describe('ReservationsContainer', () => {
       app: {
         timeTable: given.timeTable,
         maxPersons: given.maxPersons,
-      }
+      },
     }));
 
     (useSelector as jest.Mock)
