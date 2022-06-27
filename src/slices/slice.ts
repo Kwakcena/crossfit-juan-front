@@ -98,6 +98,7 @@ export const loadClassReservationArticles = (): AppThunk => async (dispatch) => 
     const articles = await getClassArticles();
 
     dispatch(setArticles(articles));
+    dispatch(setArticleNumber(articles[0].articleNumber));
   } catch (err) {
     // TODO: Error 처리를 해야 함.
     dispatch(notify({

@@ -141,7 +141,8 @@ describe('slice', () => {
 
         expect(actions[0].type).toBe('app/setLoadingState');
         expect(actions[1].type).toBe('app/setArticles');
-        expect(actions[2].type).toBe('app/setLoadingState');
+        expect(actions[2].type).toBe('app/setArticleNumber');
+        expect(actions[3].type).toBe('app/setLoadingState');
       })
     });
   });
