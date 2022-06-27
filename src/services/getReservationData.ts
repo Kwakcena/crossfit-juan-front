@@ -1,11 +1,10 @@
 import { fetchUserTimeTable } from "../api"
 
-import { Form } from "../interfaces"
-
-export const getReservationData = async (form: Form) => {
-  const { timeTable } = await fetchUserTimeTable(form);
+export const getReservationData = async (articleNumber: string) => {
+  const { timeTable, wrongData } = await fetchUserTimeTable({ articleNumber });
 
   return {
     timeTable,
+    failUsers: wrongData,
   };
 }

@@ -4,8 +4,6 @@ import { API_URL } from '../../../config';
 
 interface RequestData {
   articleNumber: string;
-  naverId: string;
-  naverPw: string;
 }
 
 export const fetchUserTimeTable = async (requestData: RequestData) => {

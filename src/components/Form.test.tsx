@@ -43,34 +43,15 @@ describe('Form', () => {
 
     (getReservationData as jest.Mock).mockResolvedValue({
       timeTable: mockUserList.data.timeTable,
+      failUsers: mockUserList.data.wrongData,
     });
   })
 
-  it('아이디, 비밀번호, 수업 선택 창을 볼 수 있다', () => {
-    const { getByLabelText } = renderForm();
+  it('수업 선택 창을 볼 수 있다', () => {
+    const { getByText, getByLabelText } = renderForm();
 
-    expect(getByLabelText('아이디를 입력해주세요')).toBeInTheDocument();
-    expect(getByLabelText('비밀번호를 입력해주세요')).toBeInTheDocument();
+    expect(getByText('수업 선택')).toBeInTheDocument();
     expect(getByLabelText('수업을 선택해주세요')).toBeInTheDocument();
-  });
-
-  it('입력란에 값을 입력할 수 있다.', () => {
-    const { getByLabelText } = renderForm();
-
-    const field = getByLabelText('아이디를 입력해주세요');
-
-    expect(field).toHaveValue('');
-
-    fireEvent.change(field, {
-      target: {
-        value: 'rhkrgudwh',
-      },
-    })
-
-    const actions = store.getActions();
-
-    expect(actions[0].type).toBe('app/setForm');
-    expect(actions[0].payload).toEqual({ name: 'naverId', value: 'rhkrgudwh' });
   });
 
   it('"제출하기" 버튼을 누르면 setTimeTable action이 실행된다.', async () => {
@@ -82,9 +63,14 @@ describe('Form', () => {
       const actions = store.getActions();
 
       expect(actions[0].type).toBe('app/setLoadingState');
+
       expect(actions[1].type).toBe('app/setTimeTable');
       expect(actions[1].payload).toEqual(mockUserList.data.timeTable);
-      expect(actions[2].type).toBe('app/setLoadingState');
+
+      expect(actions[2].type).toBe('app/setFailUsers');
+      expect(actions[2].payload).toEqual(mockUserList.data.wrongData);
+
+      expect(actions[3].type).toBe('app/setLoadingState');
     })
   });
 

@@ -7,8 +7,8 @@ import { getClassArticles, getReservationData } from '../services';
 
 import reducer, {
   initialState,
-  setForm,
   setTimeTable,
+  setFailUsers,
   setArticles,
   setLoadingState,
   submitForm,
@@ -34,6 +34,7 @@ describe('slice', () => {
 
     (getReservationData as jest.Mock).mockResolvedValue({
       timeTable: mockUserList.data.timeTable,
+      failUsers: mockUserList.data.wrongData,
     });
     (getClassArticles as jest.Mock).mockResolvedValue([
       { title: '220504수업예약', articleNumber: '12345' },
@@ -42,23 +43,13 @@ describe('slice', () => {
     ])
   })
 
-  describe('setForm', () => {
-    it('form의 상태를 변경한다', () => {
-      const { form } = reducer(
-        initialState, setForm({ name: 'naverId', value: 'rhkrgudwh' }),
-      );
-
-      expect(form.naverId).toBe('rhkrgudwh');
-    });
-  });
-
   describe('setArticleNumber', () => {
     it('수업 글 번호를 변경한다', () => {
-      const { form } = reducer(
+      const { articleNumber } = reducer(
         initialState, setArticleNumber('12345'),
       )
 
-      expect(form.articleNumber).toBe('12345');
+      expect(articleNumber).toBe('12345');
     });
   });
 
@@ -77,6 +68,22 @@ describe('slice', () => {
 
       expect(timeTable).toEqual(mockData);
     });
+  });
+
+
+  describe('setFailUsers', () => {
+    it('예약 실패한 사용자를 update 한다.', () => {
+      const mockData = {
+        ...mockUserList.data.wrongData,
+      }
+
+      const { failUsers } = reducer(
+        initialState, setFailUsers(mockData),
+      );
+
+      expect(failUsers).toEqual(mockData);
+    });
+
   });
 
   describe('setArticles', () => {
@@ -119,7 +126,8 @@ describe('slice', () => {
 
         expect(actions[0].type).toBe('app/setLoadingState');
         expect(actions[1].type).toBe('app/setTimeTable');
-        expect(actions[2].type).toBe('app/setLoadingState');
+        expect(actions[2].type).toBe('app/setFailUsers');
+        expect(actions[3].type).toBe('app/setLoadingState');
       })
     });
   });
