@@ -7,7 +7,6 @@ import { getClassArticles, getReservationData } from '../services';
 
 import reducer, {
   initialState,
-  setForm,
   setTimeTable,
   setFailUsers,
   setArticles,
@@ -44,23 +43,13 @@ describe('slice', () => {
     ])
   })
 
-  describe('setForm', () => {
-    it('form의 상태를 변경한다', () => {
-      const { form } = reducer(
-        initialState, setForm({ name: 'naverId', value: 'rhkrgudwh' }),
-      );
-
-      expect(form.naverId).toBe('rhkrgudwh');
-    });
-  });
-
   describe('setArticleNumber', () => {
     it('수업 글 번호를 변경한다', () => {
-      const { form } = reducer(
+      const { articleNumber } = reducer(
         initialState, setArticleNumber('12345'),
       )
 
-      expect(form.articleNumber).toBe('12345');
+      expect(articleNumber).toBe('12345');
     });
   });
 

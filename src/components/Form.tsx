@@ -1,9 +1,9 @@
-import { ChangeEvent, FormEvent } from 'react';
+import { FormEvent } from 'react';
 
-import { Paper, TextField, Typography, Button, styled, TypographyProps, PaperProps } from "@mui/material"
+import { Paper, Typography, Button, styled, TypographyProps, PaperProps } from "@mui/material"
 
 import { useAppDispatch, useAppSelector } from '../hooks/hooks';
-import { setArticleNumber, setForm, submitForm } from '../slices/slice';
+import { setArticleNumber, submitForm } from '../slices/slice';
 
 import SelectBox from './SelectBox/SelectBox';
 
@@ -35,11 +35,7 @@ const FormBody = styled('form')(({ theme }) => ({
 export default function Form() {
   const dispatch = useAppDispatch();
 
-  const { form, articles } = useAppSelector((state) => state.app);
-
-  const handleChange = ({ target: { name, value } }: ChangeEvent<HTMLInputElement>) => {
-    dispatch(setForm({ name, value }));
-  }
+  const { articleNumber, articles } = useAppSelector((state) => state.app);
 
   const handleChangeArticleNumber = (value: string) => {
     dispatch(setArticleNumber(value));
@@ -52,31 +48,16 @@ export default function Form() {
 
   return (
     <Wrapper elevation={3}>
-      <Header variant="h5">아이디/비밀번호 입력</Header>
+      <Header variant="h5">수업 선택</Header>
       <FormBody
         onSubmit={handleSubmit}
         noValidate
         autoComplete="off"
       >
-        <TextField
-          name="naverId"
-          value={form.naverId}
-          onChange={handleChange}
-          label="아이디를 입력해주세요"
-          variant="standard"
-        />
-        <TextField
-          name='naverPw'
-          value={form.naverPw}
-          onChange={handleChange}
-          label="비밀번호를 입력해주세요"
-          type="password"
-          variant="standard"
-        />
         <SelectBox
           articles={articles}
           onChange={handleChangeArticleNumber}
-          selected={form.articleNumber}
+          selected={articleNumber}
         />
         <Button type="submit" variant="contained">제출하기</Button>
       </FormBody>

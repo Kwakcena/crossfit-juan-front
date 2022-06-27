@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { ClassArticle, Form, User } from "../interfaces";
+import { ClassArticle, User } from "../interfaces";
 import { getClassArticles, getReservationData } from "../services";
 
 import { AppThunk } from "../store";
 import { notify } from "./page";
 
 export interface AppState {
-  form: Form,
+  articleNumber: string;
   timeTable: {
     [x: string]: User[],
   }
@@ -20,11 +20,7 @@ export interface AppState {
 }
 
 export const initialState: AppState = {
-  form: {
-    naverId: '',
-    naverPw: '',
-    articleNumber: '',
-  },
+  articleNumber: '',
   timeTable: {},
   failUsers: [],
   articles: [],
@@ -38,19 +34,9 @@ export const { actions, reducer } = createSlice({
   name: 'app',
   initialState,
   reducers: {
-    setForm: (state, { payload: { name, value } }) => ({
-      ...state,
-      form: {
-        ...state.form,
-        [name]: value,
-      },
-    }),
     setArticleNumber: (state, { payload: articleNumber }) => ({
       ...state,
-      form: {
-        ...state.form,
-        articleNumber,
-      },
+      articleNumber,
     }),
     setTimeTable: (state, { payload: timeTable }) => ({
       ...state,
@@ -66,7 +52,6 @@ export const { actions, reducer } = createSlice({
 })
 
 export const {
-  setForm,
   setArticleNumber,
   setTimeTable,
   setFailUsers,
@@ -76,7 +61,7 @@ export const {
 
 export const submitForm = (): AppThunk => async (dispatch, getState) => {
   const { app } = getState();
-  const { form } = app;
+  const { articleNumber } = app;
 
   dispatch(setLoadingState({
     isLoading: true,
@@ -84,7 +69,7 @@ export const submitForm = (): AppThunk => async (dispatch, getState) => {
   }));
 
   try {
-    const { timeTable, failUsers } = await getReservationData(form);
+    const { timeTable, failUsers } = await getReservationData(articleNumber);
 
     dispatch(setTimeTable(timeTable));
     dispatch(setFailUsers(failUsers));
