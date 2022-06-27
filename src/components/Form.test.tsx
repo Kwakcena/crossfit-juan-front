@@ -83,9 +83,14 @@ describe('Form', () => {
       const actions = store.getActions();
 
       expect(actions[0].type).toBe('app/setLoadingState');
+
       expect(actions[1].type).toBe('app/setTimeTable');
       expect(actions[1].payload).toEqual(mockUserList.data.timeTable);
-      expect(actions[2].type).toBe('app/setLoadingState');
+
+      expect(actions[2].type).toBe('app/setFailUsers');
+      expect(actions[2].payload).toEqual(mockUserList.data.wrongData);
+
+      expect(actions[3].type).toBe('app/setLoadingState');
     })
   });
 
