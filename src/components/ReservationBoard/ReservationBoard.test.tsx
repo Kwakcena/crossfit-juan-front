@@ -45,4 +45,25 @@ describe('TimeTable', () => {
       })
     });
   });
+
+  context('한 타임에 예약자 데이터가 없으면', () => {
+    const wrongTimeTable = {
+      "1000": [],
+      "1200": [
+        {
+          "name": "홍길동",
+          "phone": "1234",
+          "date": "2022.07.24. 23:00",
+        },
+      ],
+    };
+
+    given('timeTable', () => wrongTimeTable);
+
+    it('해당 타임의 예약자는 볼 수 없다.', () => {
+      const { container } = renderTimeTable();
+
+      expect(container).toHaveTextContent('예약자가 없습니다.');
+    });
+  });
 });

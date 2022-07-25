@@ -72,7 +72,9 @@ export default function ReservationBoard({ timeTable }: Props) {
                 <TableCell sx={style.tableCellText} component="th" scope="row">
                   {time}
                 </TableCell>
-                {timeTable[time].map((user, index) => (
+                {isEmpty(timeTable[time]) ? (
+                  <UserCell colSpan={2} align="left">예약자가 없습니다.</UserCell>
+                ) : (timeTable[time] ?? []).map((user, index) => (
                   <UserCell key={user.phone} align="center">
                     <span>{index + 1}</span>
                     {user.name}
