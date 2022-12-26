@@ -1,66 +1,73 @@
-import { FormEvent } from 'react';
+import { FormEvent } from "react";
 
-import { Paper, Typography, Button, styled, TypographyProps, PaperProps } from "@mui/material"
+import {
+  Paper,
+  Typography,
+  Button,
+  styled,
+  TypographyProps,
+  PaperProps,
+} from "@mui/material";
 
-import { useAppDispatch, useAppSelector } from '../hooks/hooks';
-import { setArticleNumber, submitForm } from '../slices/slice';
+import { submitForm } from "../slices/slice";
 
-import SelectBox from './SelectBox/SelectBox';
+import SelectBox from "./SelectBox/SelectBox";
+import useReservationArticlesQuery from "../queries/useReservationArticlesQuery";
+import { useAppDispatch } from "../hooks/hooks";
 
 const Wrapper = styled(Paper)<PaperProps>(() => ({
-  margin: '24px 0',
-}))
+  margin: "24px 0",
+}));
 
 const Header = styled(Typography)<TypographyProps>(() => ({
-  padding: '16px 0 0 16px',
-}))
+  padding: "16px 0 0 16px",
+}));
 
-const FormBody = styled('form')(({ theme }) => ({
+const FormBody = styled("form")(({ theme }) => ({
   padding: theme.spacing(2),
-  display: 'flex',
-  alignItems: 'flex-end',
-  '& > :not(style)': {
+  display: "flex",
+  alignItems: "flex-end",
+  "& > :not(style)": {
     marginRight: theme.spacing(3),
   },
-  [theme.breakpoints.down('sm')]: {
-    flexDirection: 'column',
-    alignItems: 'inherit',
-    '& > :not(style)': {
+  [theme.breakpoints.down("sm")]: {
+    flexDirection: "column",
+    alignItems: "inherit",
+    "& > :not(style)": {
       marginRight: 0,
       marginBottom: theme.spacing(2),
     },
   },
-}))
+}));
 
 export default function Form() {
   const dispatch = useAppDispatch();
 
-  const { articleNumber, articles } = useAppSelector((state) => state.app);
+  const { articles, articleNumber, setArticleNumber } =
+    useReservationArticlesQuery();
 
   const handleChangeArticleNumber = (value: string) => {
-    dispatch(setArticleNumber(value));
-  }
+    setArticleNumber(value);
+  };
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    dispatch(submitForm());
-  }
+    dispatch(submitForm({ articleNumber }));
+  };
 
   return (
     <Wrapper elevation={3}>
       <Header variant="h5">수업 선택</Header>
-      <FormBody
-        onSubmit={handleSubmit}
-        noValidate
-        autoComplete="off"
-      >
+      <FormBody onSubmit={handleSubmit} noValidate autoComplete="off">
         <SelectBox
           articles={articles}
           onChange={handleChangeArticleNumber}
           selected={articleNumber}
         />
-        <Button type="submit" variant="contained">제출하기</Button>
+        <Button type="submit" variant="contained">
+          제출하기
+        </Button>
       </FormBody>
     </Wrapper>
-  )
+  );
 }
