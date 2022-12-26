@@ -9,29 +9,29 @@ import { notify } from "./page";
 export interface AppState {
   articleNumber: string;
   timeTable: {
-    [x: string]: User[],
-  }
-  failUsers: User[],
+    [x: string]: User[];
+  };
+  failUsers: User[];
   articles: ClassArticle[];
   loading: {
-    isLoading: boolean,
+    isLoading: boolean;
     message: string;
   };
 }
 
 export const initialState: AppState = {
-  articleNumber: '',
+  articleNumber: "",
   timeTable: {},
   failUsers: [],
   articles: [],
   loading: {
     isLoading: false,
-    message: '',
+    message: "",
   },
-}
+};
 
 export const { actions, reducer } = createSlice({
-  name: 'app',
+  name: "app",
   initialState,
   reducers: {
     setArticleNumber: (state, { payload: articleNumber }) => ({
@@ -49,7 +49,7 @@ export const { actions, reducer } = createSlice({
     setArticles: (state, { payload: articles }) => ({ ...state, articles }),
     setLoadingState: (state, { payload }) => ({ ...state, loading: payload }),
   },
-})
+});
 
 export const {
   setArticleNumber,
@@ -59,59 +59,71 @@ export const {
   setLoadingState,
 } = actions;
 
-export const submitForm = (): AppThunk => async (dispatch, getState) => {
-  const { app } = getState();
-  const { articleNumber } = app;
+export const submitForm =
+  ({ articleNumber }: { articleNumber: string }): AppThunk =>
+  async (dispatch, getState) => {
+    dispatch(
+      setLoadingState({
+        isLoading: true,
+        message: "데이터를 불러오고 있습니다...",
+      })
+    );
 
-  dispatch(setLoadingState({
-    isLoading: true,
-    message: '데이터를 불러오고 있습니다...',
-  }));
+    try {
+      const { timeTable, failUsers } = await getReservationData(articleNumber);
 
-  try {
-    const { timeTable, failUsers } = await getReservationData(articleNumber);
+      dispatch(setTimeTable(timeTable));
+      dispatch(setFailUsers(failUsers));
+    } catch (err) {
+      // TODO: Error 처리를 해야 함.
+      dispatch(
+        notify({
+          title: "Error",
+          message: "일시적인 장애가 발생했습니다.\n관리자에게 문의 해 주세요.",
+        })
+      );
+      console.error(err);
+    } finally {
+      dispatch(
+        setLoadingState({
+          isLoading: false,
+          message: "",
+        })
+      );
+    }
+  };
 
-    dispatch(setTimeTable(timeTable));
-    dispatch(setFailUsers(failUsers));
-  } catch (err) {
-    // TODO: Error 처리를 해야 함.
-    dispatch(notify({
-      title: 'Error',
-      message: '일시적인 장애가 발생했습니다.\n관리자에게 문의 해 주세요.',
-    }));
-    console.error(err);
-  } finally {
-    dispatch(setLoadingState({
-      isLoading: false,
-      message: '',
-    }));
-  }
-}
+export const loadClassReservationArticles =
+  (): AppThunk => async (dispatch) => {
+    dispatch(
+      setLoadingState({
+        isLoading: true,
+        message: "수업 예약 글 목록을 불러오고 있습니다...",
+      })
+    );
 
-export const loadClassReservationArticles = (): AppThunk => async (dispatch) => {
-  dispatch(setLoadingState({
-    isLoading: true,
-    message: '수업 예약 글 목록을 불러오고 있습니다...',
-  }));
+    try {
+      const { articles, articleNumber } = await getClassArticles();
 
-  try {
-    const articles = await getClassArticles();
-
-    dispatch(setArticles(articles));
-    dispatch(setArticleNumber(articles[0].articleNumber));
-  } catch (err) {
-    // TODO: Error 처리를 해야 함.
-    dispatch(notify({
-      title: 'Error',
-      message: '일시적인 장애가 발생했습니다.\n관리자에게 문의 해 주세요.',
-    }));
-    console.error(err);
-  } finally {
-    dispatch(setLoadingState({
-      isLoading: false,
-      message: '',
-    }));
-  }
-}
+      dispatch(setArticles(articles));
+      dispatch(setArticleNumber(articleNumber));
+    } catch (err) {
+      // TODO: Error 처리를 해야 함.
+      dispatch(
+        notify({
+          title: "Error",
+          message: "일시적인 장애가 발생했습니다.\n관리자에게 문의 해 주세요.",
+        })
+      );
+      console.error(err);
+    } finally {
+      dispatch(
+        setLoadingState({
+          isLoading: false,
+          message: "",
+        })
+      );
+    }
+  };
 
 export default reducer;

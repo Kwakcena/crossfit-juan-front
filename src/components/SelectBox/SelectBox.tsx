@@ -1,22 +1,23 @@
-import { Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
-import { ChangeEvent } from "react";
-
+import {
+  Box,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+} from "@mui/material";
 import { ClassArticle } from "../../interfaces";
 
 interface Props {
-  articles: ClassArticle[]
+  articles: ClassArticle[];
   onChange: (value: string) => void;
   selected: string;
 }
 
-export default function SelectBox({
-  articles,
-  onChange,
-  selected,
-}: Props) {
+export default function SelectBox({ articles, onChange, selected }: Props) {
   const handleChange = ({ target: { value } }: SelectChangeEvent<string>) => {
     onChange(value);
-  }
+  };
 
   return (
     <Box sx={{ minWidth: 200 }}>
@@ -36,5 +37,5 @@ export default function SelectBox({
         </Select>
       </FormControl>
     </Box>
-  )
+  );
 }
