@@ -14,6 +14,7 @@ import { submitForm } from "../slices/slice";
 import SelectBox from "./SelectBox/SelectBox";
 import useReservationArticlesQuery from "../queries/useReservationArticlesQuery";
 import { useAppDispatch } from "../hooks/hooks";
+import Loading from "./Loading/Loading";
 
 const Wrapper = styled(Paper)<PaperProps>(() => ({
   margin: "24px 0",
@@ -43,7 +44,7 @@ const FormBody = styled("form")(({ theme }) => ({
 export default function Form() {
   const dispatch = useAppDispatch();
 
-  const { articles, articleNumber, setArticleNumber } =
+  const { articles, articleNumber, setArticleNumber, articlesLoading } =
     useReservationArticlesQuery();
 
   const handleChangeArticleNumber = (value: string) => {
@@ -54,6 +55,10 @@ export default function Form() {
     event.preventDefault();
     dispatch(submitForm({ articleNumber }));
   };
+
+  if (articlesLoading) {
+    return <Loading text={"수업 예약 글 목록을 불러오고 있습니다..."} />;
+  }
 
   return (
     <Wrapper elevation={3}>
