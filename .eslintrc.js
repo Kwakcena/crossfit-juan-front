@@ -23,6 +23,7 @@ module.exports = {
   plugins: [
     'react',
     '@typescript-eslint',
+    'unused-imports',
   ],
   globals: {
     context: 'readonly',
@@ -83,5 +84,7 @@ module.exports = {
         'newlines-between': 'always-and-inside-groups',
       },
     ],
+    'unused-imports/no-unused-imports-ts': 'error',
+    '@typescript-eslint/no-unused-vars': ['error'],
   },
 }

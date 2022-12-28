@@ -13,7 +13,6 @@ import reducer, {
   setLoadingState,
   submitForm,
   setArticleNumber,
-  loadClassReservationArticles,
 } from './slice';
 import { mockUserList } from '../../fixtures';
 
@@ -119,7 +118,7 @@ describe('slice', () => {
 
   describe('submitForm', () => {
     it('form을 제출하면 setTimeTable action을 실행한다.', async () => {
-      store.dispatch(submitForm());
+      store.dispatch(submitForm({ articleNumber: '123' }));
 
       await waitFor(() => {
         const actions = store.getActions();
@@ -127,21 +126,6 @@ describe('slice', () => {
         expect(actions[0].type).toBe('app/setLoadingState');
         expect(actions[1].type).toBe('app/setTimeTable');
         expect(actions[2].type).toBe('app/setFailUsers');
-        expect(actions[3].type).toBe('app/setLoadingState');
-      })
-    });
-  });
-
-  describe('loadClassReservationArticles', () => {
-    it('수업 예약 글 목록을 가져오면 setArticles action을 실행한다.', async () => {
-      store.dispatch(loadClassReservationArticles());
-
-      await waitFor(() => {
-        const actions = store.getActions();
-
-        expect(actions[0].type).toBe('app/setLoadingState');
-        expect(actions[1].type).toBe('app/setArticles');
-        expect(actions[2].type).toBe('app/setArticleNumber');
         expect(actions[3].type).toBe('app/setLoadingState');
       })
     });
