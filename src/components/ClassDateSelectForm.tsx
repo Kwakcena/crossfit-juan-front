@@ -1,4 +1,4 @@
-import { FormEvent } from "react";
+import { FormEvent, useEffect, useState } from "react";
 
 import {
   Paper,
@@ -12,8 +12,8 @@ import {
 import { submitForm } from "../slices/slice";
 
 import SelectBox from "./SelectBox/SelectBox";
-import useReservationArticlesQuery from "../queries/useReservationArticlesQuery";
 import { useAppDispatch } from "../hooks/hooks";
+import useClassDateQuery from "../queries/useClassDateQuery";
 import Loading from "./Loading/Loading";
 
 const Wrapper = styled(Paper)<PaperProps>(() => ({
@@ -41,11 +41,16 @@ const FormBody = styled("form")(({ theme }) => ({
   },
 }));
 
-export default function Form() {
+export default function ClassDateSelectForm() {
+  const [option, setArticleNumber] = useState<string>("");
+
   const dispatch = useAppDispatch();
 
-  const { articles, articleNumber, setArticleNumber, articlesLoading } =
-    useReservationArticlesQuery();
+  const { articles, articleNumber, isLoading } = useClassDateQuery();
+
+  useEffect(() => {
+    setArticleNumber(articleNumber);
+  }, [articleNumber]);
 
   const handleChangeArticleNumber = (value: string) => {
     setArticleNumber(value);
@@ -56,10 +61,6 @@ export default function Form() {
     dispatch(submitForm({ articleNumber }));
   };
 
-  if (articlesLoading) {
-    return <Loading text={"수업 예약 글 목록을 불러오고 있습니다..."} />;
-  }
-
   return (
     <Wrapper elevation={3}>
       <Header variant="h5">수업 선택</Header>
@@ -67,12 +68,13 @@ export default function Form() {
         <SelectBox
           articles={articles}
           onChange={handleChangeArticleNumber}
-          selected={articleNumber}
+          selected={option}
         />
         <Button type="submit" variant="contained">
           제출하기
         </Button>
       </FormBody>
+      {isLoading && <Loading text="수업 목록을 불러오고 있습니다..." />}
     </Wrapper>
   );
 }

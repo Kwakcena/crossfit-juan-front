@@ -8,25 +8,17 @@ interface ArticlesQuery {
   articleNumber: string;
 }
 
-export default function useReservationArticlesQuery() {
-  const [articleNumber, setArticleNumber] = useState<string>("");
-
-  const queryKey = "articles";
+export default function useClassDateQuery() {
+  const queryKey = "classDate";
 
   const { data, isLoading } = useQuery<ArticlesQuery, Error>(
     [queryKey],
-    getClassArticles,
-    {
-      onSuccess: ({ articleNumber }) => {
-        setArticleNumber(articleNumber);
-      },
-    }
+    getClassArticles
   );
 
   return {
     articles: data?.articles ?? [],
-    articleNumber,
-    setArticleNumber,
-    articlesLoading: isLoading,
+    articleNumber: data?.articles[0].articleNumber ?? "",
+    isLoading,
   };
 }
