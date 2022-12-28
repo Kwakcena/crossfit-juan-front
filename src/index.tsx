@@ -2,13 +2,15 @@ import { createRoot } from "react-dom/client";
 
 import { Provider } from "react-redux";
 
+import { QueryClient, QueryClientProvider } from "react-query";
+
+import { ReactQueryDevtools } from "react-query/devtools";
+
 import App from "./App";
 
 import { store } from "./store";
 
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
 
 const root = createRoot(document.getElementById("app") as Element);
 
@@ -28,7 +30,7 @@ root.render(
       <App />
     </Provider>
     <ReactQueryDevtools initialIsOpen={false} />
-  </QueryClientProvider>
+  </QueryClientProvider>,
 );
 
 serviceWorkerRegistration.register();
