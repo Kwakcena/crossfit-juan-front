@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { useQuery } from "react-query";
+
 import { ClassArticle } from "../interfaces";
 import { getClassArticles } from "../services";
 
@@ -13,7 +13,7 @@ export default function useClassDateQuery() {
 
   const { data, isLoading } = useQuery<ArticlesQuery, Error>(
     [queryKey],
-    getClassArticles
+    getClassArticles,
   );
 
   return {

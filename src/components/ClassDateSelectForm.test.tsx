@@ -36,7 +36,7 @@ describe("Form", () => {
 
     (useDispatch as jest.Mock).mockImplementation(() => store.dispatch);
     (useSelector as jest.Mock).mockImplementation((selector) =>
-      selector(store.getState())
+      selector(store.getState()),
     );
 
     (getReservationData as jest.Mock).mockResolvedValue({
@@ -92,7 +92,7 @@ describe("Form", () => {
         const actions = store.getActions();
 
         expect(actions[0]).toEqual(
-          setArticleNumber(given.articles[2].articleNumber)
+          setArticleNumber(given.articles[2].articleNumber),
         );
       });
     });
