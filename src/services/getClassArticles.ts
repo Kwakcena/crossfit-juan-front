@@ -1,4 +1,5 @@
 import { head } from "lodash";
+
 import { fetchClassReservationArticles } from "../api";
 import { ClassArticle } from "../interfaces";
 
