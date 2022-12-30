@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import Main from "./components/Main";
 import Loading from "./components/Loading/Loading";
 import Footer from "./components/Footer/Footer";
+import PullToRefresh from "react-simple-pull-to-refresh";
 
 import GlobalStyles from "./GlobalStyles";
 
@@ -33,11 +34,18 @@ export default function App() {
       <CssBaseline />
       <GlobalStyles />
       {isLoading && <Loading text={message} />}
-      <Wrap>
-        <Header />
-        <Main />
-        <Footer />
-      </Wrap>
+      <PullToRefresh
+        onRefresh={async () => window.location.reload()}
+        pullingContent=""
+        pullDownThreshold={95}
+        maxPullDownDistance={105}
+      >
+        <Wrap>
+          <Header />
+          <Main />
+          <Footer />
+        </Wrap>
+      </PullToRefresh>
     </>
   );
 }
