@@ -4,12 +4,9 @@ import styled from "@emotion/styled";
 
 import Header from "./components/Header";
 import Main from "./components/Main";
-import Loading from "./components/Loading/Loading";
 import Footer from "./components/Footer/Footer";
 
 import GlobalStyles from "./GlobalStyles";
-
-import { useAppSelector } from "./hooks/hooks";
 
 import usePage from "./hooks/usePage";
 
@@ -24,15 +21,10 @@ const Wrap = styled.div`
 export default function App() {
   usePage();
 
-  const {
-    loading: { isLoading, message },
-  } = useAppSelector((state) => state.app);
-
   return (
     <>
       <CssBaseline />
       <GlobalStyles />
-      {isLoading && <Loading text={message} />}
       <Wrap>
         <Header />
         <Main />

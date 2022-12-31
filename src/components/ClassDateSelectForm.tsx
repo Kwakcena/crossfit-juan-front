@@ -9,12 +9,10 @@ import {
   PaperProps,
 } from "@mui/material";
 
-import { submitForm } from "../slices/slice";
-
 import SelectBox from "./SelectBox/SelectBox";
-import { useAppDispatch } from "../hooks/hooks";
 import useClassDateQuery from "../queries/useClassDateQuery";
 import Loading from "./Loading/Loading";
+import useGetReservations from "../queries/useGetReservations";
 
 const Wrapper = styled(Paper)<PaperProps>(() => ({
   margin: "24px 0",
@@ -44,9 +42,12 @@ const FormBody = styled("form")(({ theme }) => ({
 export default function ClassDateSelectForm() {
   const [option, setArticleNumber] = useState<string>("");
 
-  const dispatch = useAppDispatch();
-
-  const { articles, articleNumber, isLoading } = useClassDateQuery();
+  const {
+    articles,
+    articleNumber,
+    isLoading: classDataLoading,
+  } = useClassDateQuery();
+  const { mutate: submitForm, isLoading: submitLoading } = useGetReservations();
 
   useEffect(() => {
     setArticleNumber(articleNumber);
@@ -58,7 +59,7 @@ export default function ClassDateSelectForm() {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    dispatch(submitForm({ articleNumber }));
+    submitForm(articleNumber);
   };
 
   return (
@@ -74,7 +75,8 @@ export default function ClassDateSelectForm() {
           제출하기
         </Button>
       </FormBody>
-      {isLoading && <Loading text="수업 목록을 불러오고 있습니다..." />}
+      {classDataLoading && <Loading text="수업 목록을 불러오고 있습니다..." />}
+      {submitLoading && <Loading text="데이터를 불러오고 있습니다..." />}
     </Wrapper>
   );
 }
