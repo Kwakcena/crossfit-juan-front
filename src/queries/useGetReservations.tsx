@@ -1,10 +1,12 @@
 import { useMutation } from "react-query";
+
 import { useAppDispatch } from "../hooks/hooks";
 import { getReservationData } from "../services";
 
 import { TimeTableInterface } from "../interfaces";
 import { setTimeTable } from "../slices/slice";
 import { notify } from "../slices/page";
+import { queryKeys } from "./queryKeys";
 
 interface ResponseReservationData {
   timeTable: TimeTableInterface;
@@ -17,6 +19,7 @@ export default function useGetReservations() {
   return useMutation(
     (articleNumber: string) => getReservationData(articleNumber),
     {
+      mutationKey: queryKeys.reservations(),
       onSuccess: (response: ResponseReservationData) => {
         const { timeTable } = response;
         dispatch(setTimeTable(timeTable));

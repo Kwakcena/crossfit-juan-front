@@ -11,7 +11,6 @@ import {
 
 import SelectBox from "./SelectBox/SelectBox";
 import useClassDateQuery from "../queries/useClassDateQuery";
-import Loading from "./Loading/Loading";
 import useGetReservations from "../queries/useGetReservations";
 
 const Wrapper = styled(Paper)<PaperProps>(() => ({
@@ -42,12 +41,8 @@ const FormBody = styled("form")(({ theme }) => ({
 export default function ClassDateSelectForm() {
   const [option, setArticleNumber] = useState<string>("");
 
-  const {
-    articles,
-    articleNumber,
-    isLoading: classDataLoading,
-  } = useClassDateQuery();
-  const { mutate: submitForm, isLoading: submitLoading } = useGetReservations();
+  const { articles, articleNumber } = useClassDateQuery();
+  const { mutate: submitForm } = useGetReservations();
 
   useEffect(() => {
     setArticleNumber(articleNumber);
@@ -75,8 +70,6 @@ export default function ClassDateSelectForm() {
           제출하기
         </Button>
       </FormBody>
-      {classDataLoading && <Loading text="수업 목록을 불러오고 있습니다..." />}
-      {submitLoading && <Loading text="데이터를 불러오고 있습니다..." />}
     </Wrapper>
   );
 }
