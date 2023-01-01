@@ -12,4 +12,4 @@ export const fetchClassReservationArticles = async () => {
     // TODO: 에러처리
     console.error(error);
   }
-}
+};
