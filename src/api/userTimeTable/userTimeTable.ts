@@ -1,6 +1,7 @@
-import axios from 'axios';
+import axios, { AxiosError } from "axios";
 
-import { API_URL } from '../../../config';
+import { API_URL } from "../../../config";
+import { handleError } from "../../error-handlers";
 
 interface RequestData {
   articleNumber: string;
@@ -13,7 +14,6 @@ export const fetchUserTimeTable = async (requestData: RequestData) => {
     const { data } = await axios.post(url, requestData);
     return data.data;
   } catch (err) {
-    // TODO: 에러 처리
-    console.error(err);
+    throw handleError(err as AxiosError);
   }
-}
+};

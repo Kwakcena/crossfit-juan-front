@@ -20,6 +20,7 @@ const queryClient = new QueryClient({
       staleTime: Infinity,
       refetchOnMount: false,
       refetchOnWindowFocus: false,
+      retry: false,
     },
   },
 });
@@ -30,7 +31,7 @@ root.render(
       <App />
     </Provider>
     <ReactQueryDevtools initialIsOpen={false} />
-  </QueryClientProvider>,
+  </QueryClientProvider>
 );
 
 serviceWorkerRegistration.register();
