@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import Alert from "../components/Alert/Alert";
 
-import { useAppDispatch, useAppSelector } from "./hooks"
+import { useAppDispatch, useAppSelector } from "./hooks";
 
 import { clear } from "../slices/page";
 
@@ -20,7 +20,7 @@ export default function usePage() {
       Alert({
         title,
         text: message,
-      })
+      });
     }
-  }, [message, title, dispatch])
+  }, [message, title, dispatch]);
 }

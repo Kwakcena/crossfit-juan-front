@@ -23,8 +23,7 @@ export default function useClassDateQuery() {
         dispatch(
           notify({
             title: "Error",
-            message:
-              "일시적인 장애가 발생했습니다.\n관리자에게 문의 해 주세요.",
+            message: err.message,
           })
         );
         console.error(err);
