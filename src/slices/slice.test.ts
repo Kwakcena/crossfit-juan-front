@@ -1,17 +1,10 @@
-import { waitFor } from "@testing-library/react";
 import configureStore, { MockStoreEnhanced } from "redux-mock-store";
 import thunk from "redux-thunk";
 
 import { AppDispatch } from "../store";
 import { getClassArticles, getReservationData } from "../services";
 
-import reducer, {
-  initialState,
-  setTimeTable,
-  setFailUsers,
-  setArticles,
-  setArticleNumber,
-} from "./slice";
+import reducer, { initialState, setTimeTable, setFailUsers } from "./slice";
 import { mockUserList } from "../../fixtures";
 
 const middlewares = [thunk];
@@ -40,17 +33,6 @@ describe("slice", () => {
     ]);
   });
 
-  describe("setArticleNumber", () => {
-    it("수업 글 번호를 변경한다", () => {
-      const { articleNumber } = reducer(
-        initialState,
-        setArticleNumber("12345")
-      );
-
-      expect(articleNumber).toBe("12345");
-    });
-  });
-
   describe("setTimeTable", () => {
     const mockData = {
       "0900": [
@@ -75,19 +57,6 @@ describe("slice", () => {
       const { failUsers } = reducer(initialState, setFailUsers(mockData));
 
       expect(failUsers).toEqual(mockData);
-    });
-  });
-
-  describe("setArticles", () => {
-    const mockArticles = [
-      { title: "220504수업예약", articleNumber: "12345" },
-      { title: "220503수업예약", articleNumber: "54321" },
-    ];
-
-    it("articles 의 상태를 변경한다", () => {
-      const { articles } = reducer(initialState, setArticles(mockArticles));
-
-      expect(articles).toEqual(mockArticles);
     });
   });
 });
