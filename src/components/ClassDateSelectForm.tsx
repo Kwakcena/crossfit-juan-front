@@ -54,7 +54,7 @@ export default function ClassDateSelectForm() {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    submitForm(articleNumber);
+    submitForm(option);
   };
 
   return (
