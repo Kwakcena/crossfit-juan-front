@@ -52,6 +52,8 @@ export default function Alert({ title, text }: Props) {
         </>
       ),
       confirmButtonText: "새로고침",
+      showCancelButton: true,
+      cancelButtonText: "취소",
     })
     .then((result) => {
       if (result.isConfirmed) {
