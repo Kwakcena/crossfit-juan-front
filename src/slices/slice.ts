@@ -40,9 +40,31 @@ export const { actions, reducer } = createSlice({
     ) => {
       state.toggleState[time] = isOpen;
     },
+    allOpenTabs: (state) => {
+      const allOpenState = Object.keys(state.toggleState).reduce(
+        (acc, time) => ({ ...acc, [time]: true }),
+        {}
+      );
+
+      state.toggleState = allOpenState;
+    },
+    allCloseTabs: (state) => {
+      const allCloseTabs = Object.keys(state.toggleState).reduce(
+        (acc, time) => ({ ...acc, [time]: false }),
+        {}
+      );
+
+      state.toggleState = allCloseTabs;
+    },
   },
 });
 
-export const { setTimeTable, setFailUsers, tabToggle } = actions;
+export const {
+  setTimeTable,
+  setFailUsers,
+  tabToggle,
+  allOpenTabs,
+  allCloseTabs,
+} = actions;
 
 export default reducer;
