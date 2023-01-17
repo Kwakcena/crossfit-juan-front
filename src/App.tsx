@@ -9,8 +9,6 @@ import Footer from "./components/Footer/Footer";
 import GlobalStyles from "./GlobalStyles";
 
 import usePage from "./hooks/usePage";
-import useQueriesLoading from "./queries/useQueriesLoading";
-import Loading from "./components/Loading/Loading";
 
 const Wrap = styled.div`
   margin: 0;
@@ -22,7 +20,6 @@ const Wrap = styled.div`
 
 export default function App() {
   usePage();
-  const isLoading = useQueriesLoading();
 
   return (
     <>
@@ -33,7 +30,6 @@ export default function App() {
         <Main />
         <Footer />
       </Wrap>
-      {isLoading && <Loading />}
     </>
   );
 }

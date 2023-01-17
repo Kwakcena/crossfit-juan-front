@@ -4,7 +4,15 @@ import thunk from "redux-thunk";
 import { AppDispatch } from "../store";
 import { getClassArticles, getReservationData } from "../services";
 
-import reducer, { initialState, setTimeTable, setFailUsers } from "./slice";
+import reducer, {
+  initialState,
+  setTimeTable,
+  setFailUsers,
+  tabToggle,
+  allOpenTabs,
+  allCloseTabs,
+} from "./slice";
+
 import { mockUserList } from "../../fixtures";
 
 const middlewares = [thunk];
@@ -57,6 +65,60 @@ describe("slice", () => {
       const { failUsers } = reducer(initialState, setFailUsers(mockData));
 
       expect(failUsers).toEqual(mockData);
+    });
+  });
+
+  describe("toggle tab", () => {
+    it("예약자 현황의 탭을 open / close 한다.", () => {
+      const { toggleState } = reducer(
+        initialState,
+        tabToggle({
+          time: "2200",
+          isOpen: true,
+        })
+      );
+
+      expect(toggleState["2200"]).toEqual(true);
+    });
+
+    it("모든 탭을 연다.", () => {
+      const { toggleState } = reducer(
+        {
+          ...initialState,
+          toggleState: {
+            "2200": false,
+            "2100": true,
+            "2000": false,
+          },
+        },
+        allOpenTabs()
+      );
+
+      expect(toggleState).toEqual({
+        "2200": true,
+        "2100": true,
+        "2000": true,
+      });
+    });
+
+    it("모든 탭을 닫는다.", () => {
+      const { toggleState } = reducer(
+        {
+          ...initialState,
+          toggleState: {
+            "2200": false,
+            "2100": true,
+            "2000": false,
+          },
+        },
+        allCloseTabs()
+      );
+
+      expect(toggleState).toEqual({
+        "2200": false,
+        "2100": false,
+        "2000": false,
+      });
     });
   });
 });

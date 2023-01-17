@@ -1,4 +1,4 @@
-export const TIMES = [
+export const times = [
   "2200",
   "2100",
   "2000",
@@ -9,4 +9,6 @@ export const TIMES = [
   "1000",
   "0900",
   "0630",
-];
+] as const;
+
+export type Times = typeof times[number];
