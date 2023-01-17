@@ -17,7 +17,10 @@ import TabToggleButtons from "../TabToggleButtons/TabToggleButtons";
 const Wrapper = styled(Paper)<PaperProps>(() => ({}));
 
 const Title = styled(Typography)<TypographyProps>(() => ({
-  padding: "16px 0 0 16px",
+  padding: "16px 24px 0 16px",
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
 }));
 
 interface Props {
@@ -27,8 +30,10 @@ interface Props {
 export default function ReservationBoard({ timeTable }: Props) {
   return (
     <Wrapper elevation={3}>
-      <Title variant="h5">예약자 현황</Title>
-      <TabToggleButtons />
+      <Title variant="h5">
+        예약자 현황
+        <TabToggleButtons />
+      </Title>
       {times.map((time) => (
         <div key={time}>
           <Reservation time={time} users={timeTable[time]} />
