@@ -1,14 +1,23 @@
-import { isEmpty } from 'lodash';
+import { isEmpty } from "lodash";
 
 import {
-  Table, TableCell, TableContainer, TableBody, TableHead, TableRow, Paper, styled, TableCellProps, tableCellClasses,
+  Table,
+  TableCell,
+  TableContainer,
+  TableBody,
+  TableHead,
+  TableRow,
+  Paper,
+  styled,
+  TableCellProps,
+  tableCellClasses,
 } from "@mui/material";
 
 import EmptyTable from "./ReservationEmpty";
 
-import { User } from '../../interfaces';
+import { User } from "../../interfaces";
 
-import { TIMES } from "../../constants/times";
+import { times } from "../../constants/times";
 
 const style = {
   paper: {
@@ -20,36 +29,36 @@ const style = {
   },
   table: {
     [`& .${tableCellClasses.root}`]: {
-      borderBottom: 'none',
+      borderBottom: "none",
     },
   },
   tableRow: {
-    borderBottom: '1px solid rgba(224, 224, 224, 1)',
+    borderBottom: "1px solid rgba(224, 224, 224, 1)",
   },
   tableHeader: {
     fontWeight: 400,
-    fontSize: '1.5rem',
+    fontSize: "1.5rem",
   },
   tableCellText: {
-    fontWeight: 'bold',
-    fontSize: '18px',
+    fontWeight: "bold",
+    fontSize: "18px",
   },
-}
+};
 
 const UserCell = styled(TableCell)<TableCellProps>(() => ({
-  position: 'relative',
-  '> span': {
-    position: 'absolute',
-    fontSize: '0.7rem',
-    top: '5px',
-    left: '6px',
+  position: "relative",
+  "> span": {
+    position: "absolute",
+    fontSize: "0.7rem",
+    top: "5px",
+    left: "6px",
   },
-}))
+}));
 
 interface Props {
   timeTable: {
-    [x: string]: User[]
-  }
+    [x: string]: User[];
+  };
 }
 
 export default function ReservationBoard({ timeTable }: Props) {
@@ -67,26 +76,29 @@ export default function ReservationBoard({ timeTable }: Props) {
           <EmptyTable />
         ) : (
           <TableBody>
-            {TIMES.map((time) => (
+            {times.map((time) => (
               <TableRow sx={style.tableRow} key={time}>
                 <TableCell sx={style.tableCellText} component="th" scope="row">
                   {time}
                 </TableCell>
                 {isEmpty(timeTable[time]) ? (
-                  <UserCell colSpan={2} align="left">예약자가 없습니다.</UserCell>
-                ) : (timeTable[time] ?? []).map((user, index) => (
-                  <UserCell key={user.phone} align="center">
-                    <span>{index + 1}</span>
-                    {user.name}
-                    <br />
-                    ({user.phone})
+                  <UserCell colSpan={2} align="left">
+                    예약자가 없습니다.
                   </UserCell>
-                ))}
+                ) : (
+                  (timeTable[time] ?? []).map((user, index) => (
+                    <UserCell key={user.phone} align="center">
+                      <span>{index + 1}</span>
+                      {user.name}
+                      <br />({user.phone})
+                    </UserCell>
+                  ))
+                )}
               </TableRow>
             ))}
           </TableBody>
         )}
       </Table>
     </TableContainer>
-  )
+  );
 }

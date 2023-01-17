@@ -4,7 +4,13 @@ import thunk from "redux-thunk";
 import { AppDispatch } from "../store";
 import { getClassArticles, getReservationData } from "../services";
 
-import reducer, { initialState, setTimeTable, setFailUsers } from "./slice";
+import reducer, {
+  initialState,
+  setTimeTable,
+  setFailUsers,
+  tabToggle,
+} from "./slice";
+
 import { mockUserList } from "../../fixtures";
 
 const middlewares = [thunk];
@@ -57,6 +63,20 @@ describe("slice", () => {
       const { failUsers } = reducer(initialState, setFailUsers(mockData));
 
       expect(failUsers).toEqual(mockData);
+    });
+  });
+
+  describe("tabToggle", () => {
+    it("예약자 현황의 탭을 open / close 한다.", () => {
+      const { toggleState } = reducer(
+        initialState,
+        tabToggle({
+          time: "2200",
+          isOpen: true,
+        })
+      );
+
+      expect(toggleState["2200"]).toEqual(true);
     });
   });
 });
