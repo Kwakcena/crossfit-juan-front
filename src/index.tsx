@@ -8,7 +8,7 @@ import { ReactQueryDevtools } from "react-query/devtools";
 
 import App from "./App";
 
-import { store } from "./store";
+import { setupStore } from "./store";
 
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
@@ -25,13 +25,15 @@ const queryClient = new QueryClient({
   },
 });
 
+const store = setupStore();
+
 root.render(
   <QueryClientProvider client={queryClient}>
     <Provider store={store}>
       <App />
     </Provider>
     <ReactQueryDevtools initialIsOpen={false} />
-  </QueryClientProvider>
+  </QueryClientProvider>,
 );
 
 serviceWorkerRegistration.register();

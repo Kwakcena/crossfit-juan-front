@@ -3,3 +3,9 @@ export interface User {
   phone: string;
   date: string;
 }
+
+export interface FailUser {
+  nickName: string;
+  content: string;
+  date: string;
+}

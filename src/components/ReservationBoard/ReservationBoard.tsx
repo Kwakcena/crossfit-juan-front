@@ -21,7 +21,7 @@ import { times } from "../../constants/times";
 
 const style = {
   paper: {
-    my: 3,
+    width: '65%',
   },
   title: {
     pt: 2,
@@ -63,7 +63,7 @@ interface Props {
 
 export default function ReservationBoard({ timeTable }: Props) {
   return (
-    <TableContainer component={Paper} elevation={3}>
+    <TableContainer component={Paper} elevation={3} sx={style.paper}>
       <Table aria-label="simple table" sx={style.table}>
         <TableHead>
           <TableRow sx={style.tableRow}>

@@ -2,13 +2,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { times, Times } from "../constants/times";
 
-import { User } from "../interfaces";
+import { FailUser, User } from "../interfaces";
 
 export interface AppState {
   timeTable: {
     [x: string]: User[];
   };
-  failUsers: User[];
+  failUsers: FailUser[];
   toggleState: {
     [x: string]: boolean;
   };
@@ -36,14 +36,14 @@ export const { actions, reducer } = createSlice({
       state,
       {
         payload: { time, isOpen },
-      }: PayloadAction<{ time: Times; isOpen: boolean }>
+      }: PayloadAction<{ time: Times; isOpen: boolean }>,
     ) => {
       state.toggleState[time] = isOpen;
     },
     allOpenTabs: (state) => {
       const allOpenState = Object.keys(state.toggleState).reduce(
         (acc, time) => ({ ...acc, [time]: true }),
-        {}
+        {},
       );
 
       state.toggleState = allOpenState;
@@ -51,7 +51,7 @@ export const { actions, reducer } = createSlice({
     allCloseTabs: (state) => {
       const allCloseTabs = Object.keys(state.toggleState).reduce(
         (acc, time) => ({ ...acc, [time]: false }),
-        {}
+        {},
       );
 
       state.toggleState = allCloseTabs;
