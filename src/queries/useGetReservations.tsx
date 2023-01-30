@@ -3,14 +3,14 @@ import { useMutation } from "react-query";
 import { useAppDispatch } from "../hooks/hooks";
 import { getReservationData } from "../services";
 
-import { TimeTableInterface } from "../interfaces";
-import { setTimeTable } from "../slices/slice";
+import { FailUser, TimeTableInterface } from "../interfaces";
+import { setFailUsers, setTimeTable } from "../slices/slice";
 import { notify } from "../slices/page";
 import { queryKeys } from "./queryKeys";
 
 interface ResponseReservationData {
   timeTable: TimeTableInterface;
-  failUsers: any;
+  failUsers: FailUser[];
 }
 
 export default function useGetReservations() {
@@ -21,18 +21,20 @@ export default function useGetReservations() {
     {
       mutationKey: queryKeys.reservations(),
       onSuccess: (response: ResponseReservationData) => {
-        const { timeTable } = response;
+        console.log(response);
+        const { timeTable, failUsers } = response;
         dispatch(setTimeTable(timeTable));
+        dispatch(setFailUsers(failUsers));
       },
       onError: (err: Error) => {
         dispatch(
           notify({
             title: "Error",
             message: err.message,
-          })
+          }),
         );
         console.error(err);
       },
-    }
+    },
   );
 }
