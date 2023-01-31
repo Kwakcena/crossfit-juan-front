@@ -21,7 +21,7 @@ import { times } from "../../constants/times";
 
 const style = {
   paper: {
-    width: '65%',
+    width: "65%",
   },
   title: {
     pt: 2,
@@ -87,7 +87,7 @@ export default function ReservationBoard({ timeTable }: Props) {
                   </UserCell>
                 ) : (
                   (timeTable[time] ?? []).map((user, index) => (
-                    <UserCell key={user.phone} align="center">
+                    <UserCell key={`${user.name}-${user.phone}`} align="center">
                       <span>{index + 1}</span>
                       {user.name}
                       <br />({user.phone})

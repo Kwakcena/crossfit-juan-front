@@ -21,7 +21,6 @@ export default function useGetReservations() {
     {
       mutationKey: queryKeys.reservations(),
       onSuccess: (response: ResponseReservationData) => {
-        console.log(response);
         const { timeTable, failUsers } = response;
         dispatch(setTimeTable(timeTable));
         dispatch(setFailUsers(failUsers));
@@ -31,10 +30,10 @@ export default function useGetReservations() {
           notify({
             title: "Error",
             message: err.message,
-          }),
+          })
         );
         console.error(err);
       },
-    },
+    }
   );
 }

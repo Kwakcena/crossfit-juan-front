@@ -47,6 +47,7 @@ export default function ClassDateSelectForm() {
     articleNumber,
     isLoading: fetchLoading,
   } = useClassDateQuery();
+
   const { mutate: submitForm, isLoading: submitLoading } = useGetReservations();
 
   useEffect(() => {
