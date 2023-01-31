@@ -9,7 +9,6 @@ import { useAppSelector } from "../hooks/hooks"
 
 const Wrapper = styled.div`
   display: flex;
-  justify-content: space-between;
 `
 
 export default function ReservationsContainer() {

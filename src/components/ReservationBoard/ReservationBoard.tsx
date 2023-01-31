@@ -21,7 +21,7 @@ import { times } from "../../constants/times";
 
 const style = {
   paper: {
-    width: "65%",
+    mr: 2,
   },
   title: {
     pt: 2,
