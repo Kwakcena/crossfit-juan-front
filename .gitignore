@@ -1,4 +1,4 @@
 node_modules
 fixtures
 .vscode
-dist
+.next
