@@ -1,6 +1,6 @@
 import { fireEvent, render } from "@testing-library/react";
 
-import { mockUserList } from "../../../fixtures";
+import { mockUserList } from "../../../../fixtures";
 import Reservation from "./Reservation";
 
 describe('Reservation', () => {

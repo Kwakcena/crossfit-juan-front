@@ -11,7 +11,7 @@ import { times } from "../../../constants/times";
 
 import { TimeTableInterface } from "../../../interfaces";
 
-import Reservation from "../Reservation";
+import Reservation from "../Reservation/Reservation";
 import TabToggleButtons from "../TabToggleButtons/TabToggleButtons";
 
 const Wrapper = styled(Paper)<PaperProps>(() => ({}));

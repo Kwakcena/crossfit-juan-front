@@ -1,11 +1,11 @@
-import { Times } from "../../constants/times";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { Times } from "../../../constants/times";
+import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 
-import { User } from "../../interfaces";
-import { tabToggle } from "../../slices/slice";
+import { User } from "../../../interfaces";
+import { tabToggle } from "../../../slices/slice";
 
-import Collapse from "../Shared/Collapse";
-import Users from "./Users/Users";
+import Collapse from "../../Shared/Collapse/Collapse";
+import Users from "../Users/Users";
 
 interface Props {
   time: Times;

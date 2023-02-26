@@ -5,10 +5,10 @@ import { useSelector } from "react-redux";
 
 import thunk from 'redux-thunk';
 
-import { initialState } from "../slices/slice";
+import { initialState } from "../../../slices/slice";
 
 import Main from './Main';
-import { AppDispatch } from "../store";
+import { AppDispatch } from "../../../store";
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);

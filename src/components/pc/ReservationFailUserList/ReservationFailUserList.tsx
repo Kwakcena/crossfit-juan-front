@@ -2,7 +2,7 @@ import { List, ListItem, ListItemText, ListProps, Paper, PaperProps, styled, Typ
 
 import { Resizable } from 're-resizable';
 
-import { useAppSelector } from "../../hooks/hooks";
+import { useAppSelector } from "../../../hooks/hooks";
 
 const Wrapper = styled(Paper)<PaperProps>(() => ({
   height: '100%',

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-import Alert from "../components/Alert/Alert";
+import Alert from "../components/Shared/Alert/Alert";
 
 import { useAppDispatch, useAppSelector } from "./hooks";
 

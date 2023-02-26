@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import CollapseHead from './CollapseHead';
+import CollapseHead from '../CollapseHead/CollapseHead';
 
 interface Props {
   title: string;

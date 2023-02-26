@@ -15,9 +15,9 @@ import {
 
 import EmptyTable from "./ReservationEmpty";
 
-import { User } from "../../interfaces";
+import { User } from "../../../interfaces";
 
-import { times } from "../../constants/times";
+import { times } from "../../../constants/times";
 
 const style = {
   paper: {

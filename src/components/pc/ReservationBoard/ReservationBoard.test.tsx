@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react";
 
-import { mockTimeTable, mockUserList } from "../../../fixtures";
-import { times } from "../../constants/times";
+import { mockTimeTable, mockUserList } from "../../../../fixtures";
+import { times } from "../../../constants/times";
 
 import ReservationBoard from "./ReservationBoard";
 

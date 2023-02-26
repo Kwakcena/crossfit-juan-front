@@ -1,4 +1,4 @@
-import { fireEvent, render, waitFor, within } from "@testing-library/react";
+import { fireEvent, render, within } from "@testing-library/react";
 
 import SelectBox from './SelectBox';
 

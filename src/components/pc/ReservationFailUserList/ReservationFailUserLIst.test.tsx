@@ -1,5 +1,5 @@
-import { initialState } from "../../slices/slice";
-import { renderWithProviders } from "../../utils/test-utils";
+import { initialState } from "../../../slices/slice";
+import { renderWithProviders } from "../../../utils/test-utils";
 
 import ReservationFailUserList from "./ReservationFailUserList";
 

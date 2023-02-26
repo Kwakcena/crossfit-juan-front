@@ -9,10 +9,10 @@ import {
   PaperProps,
 } from "@mui/material";
 
-import SelectBox from "./SelectBox/SelectBox";
-import useClassDateQuery from "../queries/useClassDateQuery";
-import useGetReservations from "../queries/useGetReservations";
-import Loading from "./Loading/Loading";
+import SelectBox from "../SelectBox/SelectBox";
+import useClassDateQuery from "../../../queries/useClassDateQuery";
+import useGetReservations from "../../../queries/useGetReservations";
+import Loading from "../Loading/Loading";
 
 const Wrapper = styled(Paper)<PaperProps>(() => ({
   margin: "24px 0",

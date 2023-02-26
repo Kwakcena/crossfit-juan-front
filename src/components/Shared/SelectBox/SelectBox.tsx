@@ -7,7 +7,7 @@ import {
   SelectChangeEvent,
 } from "@mui/material";
 
-import { ClassArticle } from "../../interfaces";
+import { ClassArticle } from "../../../interfaces";
 
 interface Props {
   articles: ClassArticle[];
