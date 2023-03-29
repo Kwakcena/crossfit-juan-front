@@ -1,8 +1,7 @@
 {
   "name": "juan-crossfit-front",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "private": true,
   "scripts": {
     "dev": "next dev -p 80",
     "build": "next build",
@@ -10,10 +9,6 @@
     "test": "jest",
     "lint": "npx eslint . --ext .ts,.tsx,.js,.jsx"
   },
-  "keywords": [],
-  "author": "",
-  "private": "true",
-  "license": "ISC",
   "devDependencies": {
     "@emotion/babel-plugin": "^11.10.5",
     "@testing-library/jest-dom": "^5.16.4",
