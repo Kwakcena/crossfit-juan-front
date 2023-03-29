@@ -6,6 +6,7 @@ frontend:
         - npm install
     build:
       commands:
+        - nvm use
         - npm run build
   artifacts:
     baseDirectory: .next
