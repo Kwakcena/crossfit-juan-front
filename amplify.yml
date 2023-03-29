@@ -3,11 +3,9 @@ frontend:
   phases:
     preBuild:
       commands:
-        - nvm use
         - npm install
     build:
       commands:
-        - nvm use
         - npm run build
   artifacts:
     baseDirectory: .next
