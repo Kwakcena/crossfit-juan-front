@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Head from "next/head";
 
 import { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -17,24 +18,34 @@ function MyApp({ Component, pageProps }: AppProps) {
   usePage();
 
   return (
-    <Component {...pageProps} />
-  )
+    <>
+      <Head>
+        <meta
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
+        />
+        <title>크로스핏 주안</title>
+      </Head>
+      <Component {...pageProps} />
+    </>
+  );
 }
 
 export default function App(props: AppProps) {
   const store = setupStore();
 
   const [queryClient] = useState(
-    () => new QueryClient({
-      defaultOptions: {
-        queries: {
-          staleTime: Infinity,
-          refetchOnMount: false,
-          refetchOnWindowFocus: false,
-          retry: false,
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            staleTime: Infinity,
+            refetchOnMount: false,
+            refetchOnWindowFocus: false,
+            retry: false,
+          },
         },
-      },
-    }),
+      })
   );
 
   return (
@@ -45,7 +56,7 @@ export default function App(props: AppProps) {
       </Provider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
-  )
+  );
 }
 
 // serviceWorkerRegistration.register();
