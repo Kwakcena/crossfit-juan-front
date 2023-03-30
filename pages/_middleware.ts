@@ -34,7 +34,7 @@ export function middleware(request: NextRequest | CloudFrontRequest) {
 
   console.log(
     "mobile-viewer:",
-    (request.headers as CloudFrontHeaders)["cloudfront-is-mobile-viewer"]
+    (request.headers as CloudFrontHeaders)["cloudfront-viewer-country"]
   );
 
   const { nextUrl } = request as NextRequest;
