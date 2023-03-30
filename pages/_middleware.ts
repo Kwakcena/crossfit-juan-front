@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { CloudFrontHeaders, CloudFrontRequest } from "aws-lambda";
 
 const STATIC_FILE_PATTERN_LIST = [
   /^(\/manifest\.json)/,
@@ -27,22 +26,19 @@ const checkStaticFileRequest = (pathname: string): boolean =>
     return acc;
   }, false);
 
-export function middleware(request: NextRequest | CloudFrontRequest) {
-  // const isMobile = checkMobileUserAgent(
-  //   (request.headers as NextRequest).get("user-agent") || ""
-  // );
-
-  console.log(
-    "mobile-viewer:",
-    (request.headers as CloudFrontHeaders)["cloudfront-viewer-country"]
+export function middleware(request: NextRequest) {
+  const isMobile = checkMobileUserAgent(
+    request.headers.get("user-agent") || ""
   );
 
-  const { nextUrl } = request as NextRequest;
+  console.log([...request.headers.entries()]);
+
+  const { nextUrl } = request;
   const { pathname } = nextUrl;
 
   const isStaticFileRequest = checkStaticFileRequest(pathname);
 
-  if (isStaticFileRequest) {
+  if (isStaticFileRequest || !isMobile) {
     return NextResponse.next();
   }
   nextUrl.pathname = `/m${pathname}`;
