@@ -24,11 +24,11 @@ export default function useClassDateQuery() {
           notify({
             title: "Error",
             message: err.message,
-          })
+          }),
         );
         console.error(err);
       },
-    }
+    },
   );
 
   return {

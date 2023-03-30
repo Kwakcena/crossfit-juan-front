@@ -10,7 +10,7 @@ export const initialState: PageState = {
   message: '',
 }
 
-export const { actions, reducer } = createSlice({
+const { actions, reducer } = createSlice({
   name: 'page',
   initialState,
   reducers: {

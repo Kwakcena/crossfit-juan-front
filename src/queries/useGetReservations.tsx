@@ -30,10 +30,10 @@ export default function useGetReservations() {
           notify({
             title: "Error",
             message: err.message,
-          })
+          }),
         );
         console.error(err);
       },
-    }
+    },
   );
 }

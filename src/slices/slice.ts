@@ -20,7 +20,7 @@ export const initialState: AppState = {
   toggleState: times.reduce((acc, time) => ({ ...acc, [time]: false }), {}),
 };
 
-export const { actions, reducer } = createSlice({
+const { actions, reducer } = createSlice({
   name: "app",
   initialState,
   reducers: {

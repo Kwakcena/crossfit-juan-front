@@ -75,7 +75,7 @@ describe("slice", () => {
         tabToggle({
           time: "2200",
           isOpen: true,
-        })
+        }),
       );
 
       expect(toggleState["2200"]).toEqual(true);
@@ -91,7 +91,7 @@ describe("slice", () => {
             "2000": false,
           },
         },
-        allOpenTabs()
+        allOpenTabs(),
       );
 
       expect(toggleState).toEqual({
@@ -111,7 +111,7 @@ describe("slice", () => {
             "2000": false,
           },
         },
-        allCloseTabs()
+        allCloseTabs(),
       );
 
       expect(toggleState).toEqual({
