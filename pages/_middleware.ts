@@ -31,7 +31,7 @@ export function middleware(request: NextRequest) {
     request.headers.get("user-agent") || ""
   );
 
-  console.log("request: ", JSON.stringify(request.headers));
+  console.log("request: ", JSON.stringify(request, null, 2));
 
   const { nextUrl } = request;
   const { pathname } = nextUrl;
