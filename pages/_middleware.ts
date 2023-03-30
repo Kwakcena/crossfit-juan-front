@@ -31,7 +31,7 @@ export function middleware(request: NextRequest) {
     request.headers.get("user-agent") || ""
   );
 
-  console.log("request: ", JSON.stringify(request, null, 2));
+  console.log("mobile-viewer:", request.headers["cloudfront-is-mobile-viewer"]);
 
   const { nextUrl } = request;
   const { pathname } = nextUrl;
