@@ -1,13 +1,15 @@
 import { head } from "lodash";
 
-import { fetchClassReservationArticles } from "../api";
+import axios from "axios";
+
 import { ClassArticle } from "../interfaces";
+import { API_URL } from "../../config";
 
 export const getClassArticles = async () => {
-  const articles = await fetchClassReservationArticles();
+  const { data } = await axios.get(`${API_URL}/api/articles`);
 
   return {
-    articles: articles,
-    articleNumber: head<ClassArticle>(articles)?.articleNumber ?? "",
+    articles: data.data,
+    articleNumber: head<ClassArticle>(data.data)?.articleNumber ?? "",
   };
 };
