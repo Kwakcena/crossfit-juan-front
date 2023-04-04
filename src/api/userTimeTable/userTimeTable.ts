@@ -1,6 +1,5 @@
 import axios, { AxiosError } from "axios";
 
-import { API_URL } from "../../../config";
 import { handleError } from "../../error-handlers";
 
 interface RequestData {
@@ -8,7 +7,7 @@ interface RequestData {
 }
 
 export const fetchUserTimeTable = async (requestData: RequestData) => {
-  const url = `${API_URL}/users`;
+  const url = `https://api.crossfitjuan.com/users`;
 
   try {
     const { data } = await axios.post(url, requestData);
