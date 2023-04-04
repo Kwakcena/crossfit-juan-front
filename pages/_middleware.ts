@@ -9,6 +9,8 @@ const STATIC_FILE_PATTERN_LIST = [
   /^(\/service-worker\.js)/,
 ];
 
+const API_PATH_REGEX = new RegExp('^(/api)');
+
 const MOBILE_USER_AGENT = new RegExp(
   ".*Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)|Tablet|tablet.*",
 );
@@ -18,6 +20,7 @@ const checkRegex =
     (target: string): boolean =>
       regex.test(target);
 const checkMobileUserAgent = checkRegex(MOBILE_USER_AGENT);
+const checkNxApiPath = checkRegex(API_PATH_REGEX);
 const checkStaticFileRequest = (pathname: string): boolean =>
   STATIC_FILE_PATTERN_LIST.reduce<boolean>((acc, regex) => {
     if (regex.test(pathname)) {
@@ -35,8 +38,9 @@ export function middleware(request: NextRequest) {
   const { pathname } = nextUrl;
 
   const isStaticFileRequest = checkStaticFileRequest(pathname);
+  const isApiPath = checkNxApiPath(pathname);
 
-  if (isStaticFileRequest || !isMobile) {
+  if (isStaticFileRequest || isApiPath || !isMobile) {
     return NextResponse.next();
   }
   nextUrl.pathname = `/m${pathname}`;
