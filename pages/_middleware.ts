@@ -10,13 +10,13 @@ const STATIC_FILE_PATTERN_LIST = [
 ];
 
 const MOBILE_USER_AGENT = new RegExp(
-  ".*Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)|Tablet|tablet.*"
+  ".*Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)|Tablet|tablet.*",
 );
 
 const checkRegex =
   (regex: RegExp) =>
-  (target: string): boolean =>
-    regex.test(target);
+    (target: string): boolean =>
+      regex.test(target);
 const checkMobileUserAgent = checkRegex(MOBILE_USER_AGENT);
 const checkStaticFileRequest = (pathname: string): boolean =>
   STATIC_FILE_PATTERN_LIST.reduce<boolean>((acc, regex) => {
@@ -28,10 +28,8 @@ const checkStaticFileRequest = (pathname: string): boolean =>
 
 export function middleware(request: NextRequest) {
   const isMobile = checkMobileUserAgent(
-    request.headers.get("user-agent") || ""
+    request.headers.get("user-agent") || "",
   );
-
-  console.log([...request.headers.entries()]);
 
   const { nextUrl } = request;
   const { pathname } = nextUrl;
@@ -46,6 +44,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  // matcher: ['/((?!api|_next/static|_next/image).*)'],
   matcher: ["/:path*"],
 };
